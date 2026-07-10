@@ -35,7 +35,7 @@ function LoginForm() {
         <form className="login-card" onSubmit={onSubmit}>
           <img className="login-badge" src="/assets/catolica-logo.png" alt="Católica SC" />
           <h3 className="login-h">Área restrita</h3>
-          <p className="login-s">Acesso exclusivo do time autorizado da Católica SC.</p>
+          <p className="login-s">Acesso exclusivo da Católica SC.</p>
           <div className="field">
             <span className="label">Usuário</span>
             <input className="input" value={username} onChange={(e) => setUsername(e.target.value)} autoFocus />
