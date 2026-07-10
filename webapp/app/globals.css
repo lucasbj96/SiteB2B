@@ -253,7 +253,7 @@ body{margin:0}
 .foot-links{display:flex;gap:20px;font-size:13px;color:var(--muted)}
 .login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:40px 0}
 .login-card{width:380px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:36px}
-.login-badge{width:44px;height:44px;border-radius:10px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:5px;margin-bottom:20px}
+.login-badge{display:block;width:88px;height:88px;border-radius:16px;object-fit:contain;background:#fff;border:1px solid var(--line);padding:10px;margin:0 auto 24px}
 .login-h{font-family:'Space Grotesk';font-weight:600;font-size:22px;letter-spacing:-.02em;margin:0 0 6px}
 .login-s{font-size:14px;color:var(--muted);margin:0 0 26px;line-height:1.5}
 .login-err{font-size:13px;color:#c0304a;margin:-8px 0 16px}
