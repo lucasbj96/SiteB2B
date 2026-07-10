@@ -13,36 +13,40 @@ export default function HomePage() {
   const heroLead = personalized
     ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${activeClient.name}.`
     : homeContent.lead;
+  const watermarkLogo = (activeClient && activeClient.logo) || "/assets/catolica-logo.png";
 
   return (
     <div>
       <div className="wrap">
         <div className="hero">
-          {personalized ? (
-            <>
-              <div className="forco">Proposta preparada para {activeClient.name}</div>
-              <h1 className="h1">
-                Desenvolvimento de pessoas, desenhado para a <span className="accent">{activeClient.name}</span>.
-              </h1>
-            </>
-          ) : (
-            <>
-              <div className="forco">{homeContent.eyebrow}</div>
-              <h1 className="h1">
-                {homeContent.headingPre}
-                <span className="accent">{homeContent.headingAccent}</span>
-                {homeContent.headingPost}
-              </h1>
-            </>
-          )}
-          <p className="lead">{heroLead}</p>
-          <div className="hero-actions">
-            <a className="btn btn-brand btn-lg" href="#programas">
-              Ver os programas →
-            </a>
-            <Link className="btn btn-ghost btn-lg" href="/produtos/diagnostico">
-              Fazer o diagnóstico
-            </Link>
+          <img className="home-watermark" src={watermarkLogo} alt="" />
+          <div className="hero-content">
+            {personalized ? (
+              <>
+                <div className="forco">Proposta preparada para {activeClient.name}</div>
+                <h1 className="h1">
+                  Desenvolvimento de pessoas, desenhado para a <span className="accent">{activeClient.name}</span>.
+                </h1>
+              </>
+            ) : (
+              <>
+                <div className="forco">{homeContent.eyebrow}</div>
+                <h1 className="h1">
+                  {homeContent.headingPre}
+                  <span className="accent">{homeContent.headingAccent}</span>
+                  {homeContent.headingPost}
+                </h1>
+              </>
+            )}
+            <p className="lead">{heroLead}</p>
+            <div className="hero-actions">
+              <a className="btn btn-brand btn-lg" href="#programas">
+                Ver os programas →
+              </a>
+              <Link className="btn btn-ghost btn-lg" href="/produtos/diagnostico">
+                Fazer o diagnóstico
+              </Link>
+            </div>
           </div>
         </div>
 
