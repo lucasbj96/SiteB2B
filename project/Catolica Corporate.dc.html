@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}
+body{margin:0}
+.app{--brand:#10245E;--brand-2:#3B6EF6;--brand-soft:rgba(16,36,94,.08);--brand-line:rgba(16,36,94,.2);--on-brand:#fff;--ink:#14161d;--muted:#6a7180;--faint:#9aa0ad;--line:#e7e9ee;--bg:#fbfbfc;--surface:#fff;--dark:#0c0e14;font-family:'IBM Plex Sans',system-ui,sans-serif;color:var(--ink);background:var(--bg);min-height:100vh;-webkit-font-smoothing:antialiased}
+.dsp{font-family:'Space Grotesk',system-ui,sans-serif}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:'IBM Plex Sans';font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(251,251,252,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:66px;gap:24px}
+.brand-lock{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.blk{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0}
+.brand-name{font-family:'Space Grotesk';font-weight:600;font-size:15px;line-height:1;letter-spacing:-.01em}
+.brand-sub{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-top:3px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-link{font-size:13.5px;font-weight:500;color:var(--muted);padding:8px 13px;border-radius:8px;cursor:pointer;background:none;border:none;font-family:inherit;transition:.15s}
+.nav-link:hover{color:var(--ink);background:rgba(0,0,0,.04)}
+.nav-link.on{color:var(--brand);background:var(--brand-soft)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.chip{display:flex;align-items:center;gap:9px;padding:5px 6px 5px 10px;border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:999px}
+.chip-logo{width:26px;height:26px;border-radius:6px;object-fit:contain;background:#fff;border:1px solid var(--line)}
+.chip-dot{width:26px;height:26px;border-radius:6px;background:var(--brand);display:flex;align-items:center;justify-content:center;color:var(--on-brand);font-weight:700;font-size:12px;font-family:'Space Grotesk'}
+.chip-name{font-size:12.5px;font-weight:600;max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chip-lbl{font-size:9.5px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;line-height:1;margin-bottom:2px}
+.chip-x{border:none;background:none;color:var(--faint);cursor:pointer;font-size:15px;padding:0 4px;line-height:1}
+.chip-x:hover{color:var(--ink)}
+.btn{font-family:inherit;font-size:13.5px;font-weight:600;border-radius:9px;padding:9px 16px;cursor:pointer;border:1px solid transparent;transition:.15s;display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-brand{background:var(--brand);color:var(--on-brand)}
+.btn-brand:hover{filter:brightness(1.08)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--brand-line);color:var(--brand)}
+.btn-lg{padding:13px 22px;font-size:15px}
+/* HERO */
+.hero{padding:84px 0 40px}
+.hero.center{text-align:center}
+.hero.center .hero-actions{justify-content:center}
+.hero.center .lead{margin-left:auto;margin-right:auto}
+.forco{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.hero.center .forco{justify-content:center}
+.forco:before{content:"";width:26px;height:2px;background:var(--brand);display:inline-block}
+.hero.center .forco:before{display:none}
+.h1{font-family:'Space Grotesk';font-weight:600;font-size:60px;line-height:1.02;letter-spacing:-.03em;margin:0 0 22px;max-width:16ch}
+.hero.center .h1{max-width:20ch;margin-left:auto;margin-right:auto}
+.h1 .accent{color:var(--brand)}
+.lead{font-size:19px;line-height:1.55;color:var(--muted);max-width:56ch;margin:0 0 32px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+/* PRODUCTS */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:64px 0 28px;flex-wrap:wrap}
+.sec-title{font-family:'Space Grotesk';font-weight:600;font-size:26px;letter-spacing:-.02em;margin:6px 0 0}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:20px}
+.prod-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 24px 22px;cursor:pointer;transition:.18s;display:flex;flex-direction:column;min-height:230px;overflow:hidden}
+.prod-card:hover{border-color:var(--brand-line);transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(16,24,50,.28)}
+.prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.prod-num{font-family:'Space Grotesk';font-size:12px;font-weight:600;color:var(--faint);letter-spacing:.05em}
+.prod-tag{font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);padding:5px 10px;border-radius:999px}
+.prod-name{font-family:'Space Grotesk';font-weight:600;font-size:22px;letter-spacing:-.02em;margin:0 0 10px;line-height:1.1}
+.prod-pitch{font-size:14px;line-height:1.5;color:var(--muted);margin:0}
+.prod-go{margin-top:auto;padding-top:18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand)}
+.prod-go .arw{transition:.2s}
+.prod-card:hover .prod-go .arw{transform:translateX(4px)}
+.prod-card.premium{background:var(--dark);border-color:#1c2130;color:#f2f3f6}
+.prod-card.premium:hover{border-color:#2a3145;box-shadow:0 18px 40px -22px rgba(0,0,0,.55)}
+.prod-card.premium .prod-name{color:#fff}
+.prod-card.premium .prod-pitch{color:#9aa2b4}
+.prod-card.premium .prod-tag{color:#dfe4ef;background:rgba(255,255,255,.09)}
+.prod-card.premium .prod-num{color:#5b6272}
+.prod-card.premium .prod-go{color:#c9a24b}
+/* PRODUCT VIEW */
+.back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;margin:34px 0 0}
+.back:hover{color:var(--brand)}
+.pv-hero{padding:34px 0 8px;max-width:60ch}
+.pv-tag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:18px}
+.pv-title{font-family:'Space Grotesk';font-weight:600;font-size:52px;line-height:1.03;letter-spacing:-.03em;margin:0 0 22px}
+.pv-manifesto{font-family:'Space Grotesk';font-size:26px;line-height:1.3;font-weight:400;letter-spacing:-.01em;color:var(--ink);margin:0}
+.pv-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:60px;margin:52px 0 40px;align-items:start}
+.pv-body p{font-size:17px;line-height:1.68;color:#3a3f4c;margin:0 0 20px;text-wrap:pretty}
+.pv-points{border-left:2px solid var(--brand);padding-left:24px;display:flex;flex-direction:column;gap:16px}
+.pv-points-h{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 4px}
+.point{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.4}
+.point .pn{font-family:'Space Grotesk';font-weight:600;font-size:13px;color:var(--brand);min-width:20px}
+.pv-cta{margin:20px 0 90px;background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:18px;padding:40px 44px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.pv-cta-h{font-family:'Space Grotesk';font-weight:600;font-size:24px;letter-spacing:-.02em;margin:0 0 6px}
+.pv-cta-s{font-size:15px;color:var(--muted);margin:0}
+/* premium product page */
+.pv.premium{background:var(--dark);color:#eef0f5;margin:0 -100vw;padding:0 100vw}
+.pv.premium .back{color:#8b93a6}
+.pv.premium .back:hover{color:#c9a24b}
+.pv.premium .pv-tag{color:#c9a24b}
+.pv.premium .pv-manifesto,.pv.premium .pv-title{color:#fff}
+.pv.premium .pv-body p{color:#b6bccb}
+.pv.premium .pv-points{border-color:#c9a24b}
+.pv.premium .point .pn{color:#c9a24b}
+.pv.premium .pv-points-h{color:#8b93a6}
+.pv.premium .pv-cta{background:rgba(201,162,75,.1);border-color:rgba(201,162,75,.3)}
+.pv.premium .pv-cta .btn-brand{background:#c9a24b;color:#14120a}
+.other-progs{margin:0 0 70px}
+.other-progs-h{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.other-progs-row{display:flex;flex-wrap:wrap;gap:10px}
+.other-prog-item{display:flex;align-items:center;gap:10px;font-family:inherit;font-size:14px;font-weight:600;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);cursor:pointer;transition:.15s}
+.other-prog-item:hover{border-color:var(--brand-line);background:var(--brand-soft);color:var(--brand)}
+.op-tag{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.op-arrow{opacity:0;transition:.15s;margin-left:2px}
+.other-prog-item:hover .op-arrow{opacity:1}
+.pv.premium .other-progs-h{color:#8b93a6}
+.pv.premium .other-prog-item{background:transparent;border-color:#252a3a;color:#eef0f5}
+.pv.premium .other-prog-item:hover{border-color:#c9a24b;background:rgba(201,162,75,.1);color:#c9a24b}
+.pv.premium .op-tag{color:#8b93a6}
+.stat-row{display:flex;gap:14px;flex-wrap:wrap;margin:36px 0 4px}
+.stat{border:1px solid var(--line);border-radius:14px;padding:18px 20px;flex:1;min-width:140px;background:var(--surface)}
+.stat-v{font-family:'Space Grotesk';font-weight:700;font-size:24px;color:var(--brand);letter-spacing:-.01em;margin-bottom:4px}
+.stat-l{font-size:12.5px;color:var(--muted);line-height:1.3}
+.pv.premium .stat{background:transparent;border-color:#252a3a}
+.pv.premium .stat-v{color:#c9a24b}
+.extra-block{margin:0 0 44px;max-width:900px}
+.extra-h{font-family:'Space Grotesk';font-weight:600;font-size:19px;letter-spacing:-.01em;margin:0 0 18px}
+.extra-list{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+.extra-list li{font-size:15px;line-height:1.5;color:#3a3f4c;padding-left:20px;position:relative}
+.extra-list li:before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:99px;background:var(--brand)}
+.pv.premium .extra-list li{color:#b6bccb}
+.pv.premium .extra-list li:before{background:#c9a24b}
+.steps{display:flex;flex-direction:column;gap:18px}
+.step{display:flex;gap:16px;align-items:flex-start}
+.step-n{font-family:'Space Grotesk';font-weight:700;font-size:14px;color:var(--brand);border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-t{font-weight:600;font-size:15.5px;margin:2px 0 4px}
+.step-d{font-size:14px;color:var(--muted);line-height:1.5;margin:0}
+.pv.premium .step-n{color:#c9a24b;border-color:rgba(201,162,75,.3);background:rgba(201,162,75,.1)}
+.pv.premium .step-d{color:#9aa2b4}
+.cmp-table{display:flex;flex-direction:column;gap:1px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cmp-row{display:grid;grid-template-columns:1fr 1.1fr 1.3fr;gap:16px;padding:16px 18px;background:var(--surface);border-top:1px solid var(--line)}
+.cmp-row:first-child{border-top:none}
+.cmp-a{font-weight:600;font-size:14px}
+.cmp-b{font-size:13.5px;color:var(--muted);line-height:1.4}
+.cmp-c{font-size:13.5px;color:var(--brand);font-weight:500;line-height:1.4}
+.pv.premium .cmp-table{border-color:#252a3a}
+.pv.premium .cmp-row{background:transparent;border-color:#252a3a}
+.pv.premium .cmp-b{color:#8b93a6}
+.pv.premium .cmp-c{color:#c9a24b}
+.trilhas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.trilha-card{border:1px solid var(--line);border-radius:13px;padding:18px 20px;background:var(--surface)}
+.trilha-top{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.trilha-num{font-family:'Space Grotesk';font-size:11px;font-weight:700;color:var(--faint)}
+.trilha-name{font-weight:600;font-size:15px}
+.trilha-tag{font-size:13px;color:var(--muted);line-height:1.4;margin:0 0 12px;font-style:italic}
+.trilha-meta{display:flex;gap:10px;font-size:11.5px;font-weight:600;color:var(--brand)}
+.pv.premium .trilha-card{background:transparent;border-color:#252a3a}
+.pv.premium .trilha-tag{color:#8b93a6}
+.pv.premium .trilha-meta{color:#c9a24b}
+.diag-sub{font-size:14px;color:var(--muted);margin:-14px 0 22px}
+.diag-opt.sel{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.diag-opt.diag-multi{justify-content:flex-start;gap:12px}
+.diag-check{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:transparent}
+.diag-opt.sel .diag-check{background:var(--brand);border-color:var(--brand);color:#fff}
+.diag-insight{font-size:13.5px;color:var(--muted);line-height:1.5;margin:18px 0 0;padding-top:16px;border-top:1px solid var(--line)}
+.chapters-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.chapter-card{border:1px solid var(--line);border-radius:13px;padding:20px 22px;background:var(--surface);border-left:2px solid var(--brand)}
+.chapter-top{display:flex;align-items:baseline;gap:10px;margin-bottom:8px}
+.chapter-num{font-family:'Space Grotesk';font-size:12px;font-weight:700;color:var(--brand)}
+.chapter-title{font-weight:600;font-size:16px}
+.chapter-quote{font-size:13.5px;color:var(--muted);line-height:1.5;margin:0 0 10px;font-style:italic}
+.chapter-partner{font-size:11.5px;font-weight:600;color:var(--brand);margin:0}
+.pv.premium .chapter-card{background:transparent;border-color:#252a3a;border-left-color:#c9a24b}
+.pv.premium .chapter-num{color:#c9a24b}
+.pv.premium .chapter-quote{color:#8b93a6}
+.pv.premium .chapter-partner{color:#c9a24b}
+.note-block{max-width:900px;margin:0 0 44px;border:1px dashed var(--line);border-radius:14px;padding:22px 26px;background:var(--brand-soft)}
+.note-h{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brand);margin:0 0 8px}
+.note-text{font-size:14.5px;line-height:1.55;color:#3a3f4c;margin:0}
+.pv.premium .note-block{background:rgba(201,162,75,.08);border-color:rgba(201,162,75,.35)}
+.pv.premium .note-h{color:#c9a24b}
+.pv.premium .note-text{color:#b6bccb}
+@media(max-width:900px){.trilhas-grid{grid-template-columns:1fr}.cmp-row{grid-template-columns:1fr}.chapters-grid{grid-template-columns:1fr}}
+/* DIAGNOSTIC */
+.diag{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:40px 44px;margin:44px 0 90px;max-width:760px}
+.diag-bar{height:4px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:30px}
+.diag-fill{height:100%;background:var(--brand);border-radius:99px;transition:width .3s}
+.diag-step{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.diag-q{font-family:'Space Grotesk';font-weight:600;font-size:28px;letter-spacing:-.02em;margin:0 0 26px;line-height:1.15}
+.diag-opts{display:flex;flex-direction:column;gap:10px}
+.diag-opt{text-align:left;font-family:inherit;font-size:16px;font-weight:500;padding:17px 20px;border:1px solid var(--line);border-radius:12px;background:var(--bg);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.diag-opt:hover{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.diag-opt .oarw{opacity:0;transition:.15s}
+.diag-opt:hover .oarw{opacity:1;transform:translateX(3px)}
+.diag-res-lbl{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+.diag-res-h{font-family:'Space Grotesk';font-weight:600;font-size:24px;margin:0 0 8px;letter-spacing:-.02em}
+.diag-rec{border:1px solid var(--brand-line);background:var(--brand-soft);border-radius:14px;padding:22px 24px;margin:16px 0;cursor:pointer;transition:.15s}
+.diag-rec:hover{transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(16,24,50,.3)}
+.diag-rec .rn{font-family:'Space Grotesk';font-weight:600;font-size:20px;color:var(--brand);margin:0 0 6px}
+.diag-rec .rp{font-size:14px;color:var(--muted);margin:0}
+.diag-sec{margin-top:22px;font-size:13px;color:var(--muted)}
+.diag-restart{margin-top:18px;font-size:13px;font-weight:600;color:var(--brand);background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+/* CLIENTS */
+.cl-wrap{padding:44px 0 90px;display:grid;grid-template-columns:400px 1fr;gap:44px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:30px}
+.card-h{font-family:'Space Grotesk';font-weight:600;font-size:20px;letter-spacing:-.02em;margin:0 0 4px}
+.card-s{font-size:13.5px;color:var(--muted);margin:0 0 24px;line-height:1.5}
+.field{margin-bottom:20px}
+.label{display:block;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.input{width:100%;font-family:inherit;font-size:15px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);outline:none;transition:.15s}
+.input:focus{border-color:var(--brand);background:#fff}
+.drop{border:1.5px dashed var(--line);border-radius:14px;padding:26px;text-align:center;cursor:pointer;transition:.15s;display:block}
+.drop:hover{border-color:var(--brand);background:var(--brand-soft)}
+.drop input{display:none}
+.drop-ico{font-size:22px;color:var(--faint);margin-bottom:8px}
+.drop-t{font-size:14px;font-weight:600;margin-bottom:3px}
+.drop-s{font-size:12px;color:var(--muted)}
+.logo-prev{display:flex;align-items:center;gap:14px}
+.logo-prev img{width:64px;height:64px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px}
+.logo-prev .lp-swap{font-size:12.5px;font-weight:600;color:var(--brand);cursor:pointer}
+.detected{font-size:11px;color:var(--muted);margin:10px 0 8px;letter-spacing:.03em}
+.chk-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);line-height:1.4;margin:-6px 0 20px;cursor:pointer}
+.chk-row input{margin-top:2px;accent-color:var(--brand);width:15px;height:15px;flex-shrink:0}
+.cl-badge{font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--brand);background:var(--brand-soft);border:1px solid var(--brand-line);padding:2px 7px;border-radius:99px;margin-left:8px;vertical-align:middle}
+.sw-row{display:flex;gap:8px;flex-wrap:wrap}
+.sw{width:30px;height:30px;border-radius:8px;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);transition:.12s}
+.sw:hover{transform:scale(1.1)}
+.colors{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cc{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;background:var(--bg)}
+.cc input[type=color]{width:34px;height:34px;border:none;background:none;padding:0;cursor:pointer;border-radius:8px}
+.cc-meta{line-height:1.2}
+.cc-l{font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.cc-v{font-size:13px;font-weight:600;font-family:'Space Grotesk'}
+.prev-box{margin-top:8px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.prev-bar{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;color:#fff}
+.prev-body{padding:16px 18px;background:#fff;display:flex;gap:10px;align-items:center}
+.prev-btn{font-size:13px;font-weight:600;padding:9px 14px;border-radius:8px;color:#fff}
+.prev-pill{font-size:12px;font-weight:600;padding:6px 12px;border-radius:99px}
+.form-actions{display:flex;gap:10px;margin-top:8px}
+.empty{text-align:center;padding:70px 20px;color:var(--muted)}
+.empty-h{font-family:'Space Grotesk';font-weight:600;font-size:20px;color:var(--ink);margin:14px 0 6px}
+.cl-list-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.cl-list-t{font-family:'Space Grotesk';font-weight:600;font-size:20px;letter-spacing:-.02em;margin:0}
+.cl-count{font-size:12px;color:var(--muted);background:var(--bg);border:1px solid var(--line);padding:4px 10px;border-radius:99px;font-weight:600}
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cl-item{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--surface);transition:.15s;position:relative}
+.cl-item.active{border-color:var(--ci);box-shadow:0 0 0 1px var(--ci)}
+.cl-item-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.cl-item-logo{width:44px;height:44px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:10px;padding:4px}
+.cl-item-dot{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Space Grotesk';font-weight:700;font-size:17px}
+.cl-item-name{font-family:'Space Grotesk';font-weight:600;font-size:16px;line-height:1.15;margin:0}
+.cl-item-sector{font-size:12px;color:var(--muted);margin:2px 0 0}
+.cl-swatch{display:flex;gap:5px;margin-bottom:16px}
+.cl-swatch span{width:22px;height:22px;border-radius:6px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.cl-item-acts{display:flex;gap:8px;align-items:center}
+.mini{font-size:12.5px;font-weight:600;font-family:inherit;padding:7px 12px;border-radius:8px;cursor:pointer;border:1px solid var(--line);background:#fff;color:var(--ink);transition:.15s}
+.mini:hover{border-color:var(--brand-line)}
+.mini.solid{background:var(--brand);color:var(--on-brand);border-color:var(--brand)}
+.mini.solid.is{background:#eaf6ee;color:#1f8a4d;border-color:#bfe6cd}
+.mini-x{margin-left:auto;color:var(--faint);border:none;background:none;cursor:pointer;font-size:13px;font-weight:600}
+.mini-x:hover{color:#d0455a}
+/* FOOTER */
+.foot{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.foot-l{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
+.foot-links{display:flex;gap:20px;font-size:13px;color:var(--muted)}
+.login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:40px 0}
+.login-card{width:380px;background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:36px}
+.login-badge{width:44px;height:44px;border-radius:10px;background:var(--brand);color:var(--on-brand);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:18px;margin-bottom:20px}
+.login-h{font-family:'Space Grotesk';font-weight:600;font-size:22px;letter-spacing:-.02em;margin:0 0 6px}
+.login-s{font-size:14px;color:var(--muted);margin:0 0 26px;line-height:1.5}
+.login-err{font-size:13px;color:#c0304a;margin:-8px 0 16px}
+.logout-link{font-size:12.5px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;font-family:inherit;padding:0}
+.logout-link:hover{color:#c0304a}
+.corner-access{width:30px;height:30px;border-radius:8px;border:1px solid transparent;background:none;color:var(--faint);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:.55;transition:.15s}
+.corner-access:hover{opacity:1;color:var(--brand);background:var(--brand-soft);border-color:var(--brand-line)}
+.admin-tabs{display:flex;gap:6px;margin:28px 0 8px;border-bottom:1px solid var(--line)}
+.admin-tab{font-family:inherit;font-size:14px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;padding:11px 4px;margin-right:22px;border-bottom:2px solid transparent;transition:.15s}
+.admin-tab:hover{color:var(--ink)}
+.admin-tab.on{color:var(--brand);border-color:var(--brand)}
+.pc-wrap{padding:30px 0 90px;display:grid;grid-template-columns:270px 1fr;gap:24px;align-items:start}
+.pc-list{display:flex;flex-direction:column;gap:6px;position:sticky;top:90px}
+.pc-item{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:left;font-family:inherit;font-size:14px;font-weight:600;padding:13px 16px;border-radius:11px;border:1px solid var(--line);background:var(--surface);cursor:pointer;transition:.15s}
+.pc-item:hover{border-color:var(--brand-line)}
+.pc-item.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
+.pc-dot{width:7px;height:7px;border-radius:99px;background:var(--brand);flex-shrink:0}
+.textarea{resize:vertical;min-height:60px;line-height:1.5;font-family:inherit}
+@media(max-width:900px){.prod-grid{grid-template-columns:1fr}.pv-grid{grid-template-columns:1fr;gap:32px}.cl-wrap{grid-template-columns:1fr}.h1{font-size:42px}.cl-grid{grid-template-columns:1fr}}
+</style></helmet>
+<div class="app" style="{{ themeVars }}">
+<div class="nav"><div class="wrap"><div class="nav-in">
+<div class="brand-lock" onClick="{{ goHome }}"><img class="blk" src="assets/catolica-logo.png" alt="Católica SC"><div><div class="brand-name">Católica SC</div><div class="brand-sub">Educação Corporativa</div></div></div>
+<div class="nav-links"><button class="{{ navHome }}" onClick="{{ goHome }}">Visão geral</button></div>
+<div class="nav-right">
+<sc-if value="{{ heroPersonalized }}" hint-placeholder-val="{{ false }}"><div class="chip"><sc-if value="{{ activeClient.logo }}" hint-placeholder-val="{{ false }}"><img class="chip-logo" ref="{{ chipLogoRef }}" alt=""></sc-if><sc-if value="{{ noLogo }}" hint-placeholder-val="{{ true }}"><div class="chip-dot">{{ activeClient.initial }}</div></sc-if><div><div class="chip-lbl">{{ chipLabel }}</div><div class="chip-name">{{ activeClient.name }}</div></div></div></sc-if>
+<sc-if value="{{ isAuthed }}" hint-placeholder-val="{{ false }}"><button class="logout-link" onClick="{{ doLogout }}">Sair</button></sc-if>
+<button class="corner-access" onClick="{{ goClients }}" title="Acesso interno">⚙</button>
+</div>
+</div></div></div>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}"><div>
+<div class="wrap">
+<div class="{{ heroClass }}">
+<sc-if value="{{ heroPersonalized }}" hint-placeholder-val="{{ false }}"><div class="forco">Proposta preparada para {{ activeClient.name }}</div><h1 class="h1">Desenvolvimento de pessoas, desenhado para a <span class="accent">{{ activeClient.name }}</span>.</h1></sc-if>
+<sc-if value="{{ heroGeneric }}" hint-placeholder-val="{{ true }}"><div class="forco">Portfólio de Educação Corporativa</div><h1 class="h1">Formação que vira <span class="accent">resultado</span> no próximo dia de trabalho.</h1></sc-if>
+<p class="lead">{{ heroLead }}</p>
+<div class="hero-actions"><button class="btn btn-brand btn-lg" onClick="{{ goProducts }}">Ver os programas →</button><button class="btn btn-ghost btn-lg" onClick="{{ goDiagnostico }}">Fazer o diagnóstico</button></div>
+</div>
+<div class="sec-head" id="programas"><div><div class="eyebrow">Portfólio</div><h2 class="sec-title">Seis caminhos para o mesmo objetivo</h2></div></div>
+<div class="prod-grid">
+<sc-for list="{{ cards }}" as="c" hint-placeholder-count="6">
+<div class="{{ c.cardClass }}" onClick="{{ c.onOpen }}">
+<div class="prod-top"><span class="prod-num">{{ c.num }}</span><span class="prod-tag">{{ c.tag }}</span></div><div class="prod-name">{{ c.name }}</div><p class="prod-pitch">{{ c.pitch }}</p><div class="prod-go">Ver programa <span class="arw">→</span></div>
+</div>
+</sc-for>
+</div>
+<div class="foot"><div class="foot-l"><img class="blk" style="width:26px;height:26px;border-radius:6px" src="assets/catolica-logo.png" alt="Católica SC">Católica SC · Educação Corporativa</div><div class="foot-links"><span>Jaraguá do Sul</span><span>Joinville</span><span>0800 600 0005</span></div></div>
+</div>
+</div></sc-if>
+
+<sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}"><div class="wrap"><div class="{{ product.pvClass }}">
+<button class="back" onClick="{{ goProducts }}">← Todos os programas</button>
+<div class="pv-hero"><div class="pv-tag">{{ product.tag }}</div><h1 class="pv-title">{{ product.name }}</h1><p class="pv-manifesto">{{ product.manifesto }}</p></div>
+<sc-if value="{{ product.isDiag }}" hint-placeholder-val="{{ false }}">
+<div class="diag">
+<sc-if value="{{ diagRunning }}" hint-placeholder-val="{{ true }}">
+<div class="diag-bar"><div class="diag-fill" style="{{ diagFillStyle }}"></div></div>
+<div class="diag-step">Etapa {{ diagStepLabel }}</div>
+<h3 class="diag-q">{{ diagQ.q }}</h3>
+<sc-if value="{{ diagQ.sub }}" hint-placeholder-val="{{ false }}"><p class="diag-sub">{{ diagQ.sub }}</p></sc-if>
+<sc-if value="{{ diagIsSingle }}" hint-placeholder-val="{{ true }}">
+<div class="diag-opts"><sc-for list="{{ diagQ.opts }}" as="o" hint-placeholder-count="4"><button class="diag-opt" onClick="{{ o.onPick }}">{{ o.label }}<span class="oarw">→</span></button></sc-for></div>
+</sc-if>
+<sc-if value="{{ diagIsMulti }}" hint-placeholder-val="{{ false }}">
+<div class="diag-opts"><sc-for list="{{ diagQ.opts }}" as="o" hint-placeholder-count="8"><button class="{{ o.optClass }}" onClick="{{ o.onPick }}"><span class="diag-check">✓</span>{{ o.label }}</button></sc-for></div>
+<button class="btn btn-brand" style="margin-top:18px" disabled="{{ diagCantConfirm }}" onClick="{{ diagConfirmMulti }}">Continuar →</button>
+</sc-if>
+</sc-if>
+<sc-if value="{{ diagIsLead }}" hint-placeholder-val="{{ false }}">
+<div class="diag-bar"><div class="diag-fill" style="{{ diagFillStyle }}"></div></div>
+<div class="diag-step">Etapa {{ diagStepLabel }}</div>
+<h3 class="diag-q">Quase lá — para onde enviamos o diagnóstico?</h3>
+<form onSubmit="{{ onLeadSubmit }}">
+<div class="field"><span class="label">Nome (opcional)</span><input class="input" value="{{ diagLead.name }}" onInput="{{ onLeadName }}"></div>
+<div class="field"><span class="label">E-mail corporativo</span><input class="input" type="email" placeholder="voce@empresa.com" value="{{ diagLead.email }}" onInput="{{ onLeadEmail }}"></div>
+<sc-if value="{{ diagLeadError }}" hint-placeholder-val="{{ false }}"><p class="login-err">Informe um e-mail válido.</p></sc-if>
+<div class="field"><span class="label">Área / departamento (opcional)</span><input class="input" value="{{ diagLead.area }}" onInput="{{ onLeadArea }}"></div>
+<button type="submit" class="btn btn-brand btn-lg" style="width:100%;justify-content:center">Ver diagnóstico →</button>
+</form>
+</sc-if>
+<sc-if value="{{ diagDone }}" hint-placeholder-val="{{ false }}">
+<div class="diag-res-lbl">◆ Diagnóstico concluído</div>
+<h3 class="diag-res-h">Com base nas suas respostas, recomendamos:</h3>
+<div class="diag-rec" onClick="{{ diagRec.onOpen }}"><p class="rn">{{ diagRec.name }} →</p><p class="rp">{{ diagRec.pitch }}</p></div>
+<div class="diag-sec">Também vale conhecer: <a onClick="{{ diagSec.onOpen }}" style="color:var(--brand);font-weight:600;cursor:pointer">{{ diagSec.name }}</a></div>
+<p class="diag-insight">"Treinamento sem entregável é entretenimento." Empresas que investem em formação de lideranças têm 20% menos rotatividade (Deloitte, 2024).</p>
+<button class="diag-restart" onClick="{{ restartDiag }}">↻ Refazer diagnóstico</button>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{ product.isStd }}" hint-placeholder-val="{{ true }}">
+<sc-if value="{{ product.hasStats }}" hint-placeholder-val="{{ false }}"><div class="stat-row"><sc-for list="{{ product.stats }}" as="s" hint-placeholder-count="4"><div class="stat"><div class="stat-v">{{ s.v }}</div><div class="stat-l">{{ s.l }}</div></div></sc-for></div></sc-if>
+<div class="pv-grid">
+<div class="pv-body"><sc-for list="{{ product.body }}" as="p" hint-placeholder-count="3"><p>{{ p }}</p></sc-for></div>
+<div class="pv-points"><p class="pv-points-h">Em resumo</p><sc-for list="{{ product.pointList }}" as="pt" hint-placeholder-count="4"><div class="point"><span class="pn">{{ pt.n }}</span><span>{{ pt.t }}</span></div></sc-for></div>
+</div>
+<sc-for list="{{ product.blocks }}" as="blk" hint-placeholder-count="0">
+<sc-if value="{{ blk.isList }}" hint-placeholder-val="{{ false }}"><div class="extra-block"><h4 class="extra-h">{{ blk.heading }}</h4><ul class="extra-list"><sc-for list="{{ blk.items }}" as="it" hint-placeholder-count="4"><li>{{ it }}</li></sc-for></ul></div></sc-if>
+<sc-if value="{{ blk.isSteps }}" hint-placeholder-val="{{ false }}"><div class="extra-block"><h4 class="extra-h">{{ blk.heading }}</h4><div class="steps"><sc-for list="{{ blk.items }}" as="stp" hint-placeholder-count="3"><div class="step"><span class="step-n">{{ stp.n }}</span><div><p class="step-t">{{ stp.t }}</p><p class="step-d">{{ stp.d }}</p></div></div></sc-for></div></div></sc-if>
+<sc-if value="{{ blk.isTable }}" hint-placeholder-val="{{ false }}"><div class="extra-block"><h4 class="extra-h">{{ blk.heading }}</h4><div class="cmp-table"><sc-for list="{{ blk.rows }}" as="r" hint-placeholder-count="3"><div class="cmp-row"><div class="cmp-a">{{ r.a }}</div><div class="cmp-b">{{ r.b }}</div><div class="cmp-c">{{ r.c }}</div></div></sc-for></div></div></sc-if>
+<sc-if value="{{ blk.isTrilhas }}" hint-placeholder-val="{{ false }}"><div class="extra-block"><h4 class="extra-h">{{ blk.heading }}</h4><div class="trilhas-grid"><sc-for list="{{ blk.items }}" as="tr" hint-placeholder-count="7"><div class="trilha-card"><div class="trilha-top"><span class="trilha-num">{{ tr.num }}</span><span class="trilha-name">{{ tr.name }}</span></div><p class="trilha-tag">"{{ tr.tag }}"</p><div class="trilha-meta"><span>{{ tr.audience }}</span><span>{{ tr.duration }}</span></div></div></sc-for></div></div></sc-if>
+<sc-if value="{{ blk.isChapters }}" hint-placeholder-val="{{ false }}"><div class="extra-block"><h4 class="extra-h">{{ blk.heading }}</h4><div class="chapters-grid"><sc-for list="{{ blk.items }}" as="ch" hint-placeholder-count="7"><div class="chapter-card"><div class="chapter-top"><span class="chapter-num">{{ ch.num }}</span><span class="chapter-title">{{ ch.title }}</span></div><p class="chapter-quote">"{{ ch.quote }}"</p><sc-if value="{{ ch.partner }}" hint-placeholder-val="{{ false }}"><p class="chapter-partner">{{ ch.partner }}</p></sc-if></div></sc-for></div></div></sc-if>
+<sc-if value="{{ blk.isNote }}" hint-placeholder-val="{{ false }}"><div class="note-block"><p class="note-h">{{ blk.heading }}</p><p class="note-text">{{ blk.text }}</p></div></sc-if>
+</sc-for>
+</sc-if>
+<div class="pv-cta"><div><h3 class="pv-cta-h">{{ product.ctaTitle }}</h3><p class="pv-cta-s">{{ product.ctaSub }}</p></div><a class="btn btn-brand btn-lg" href="{{ waHref }}" target="_blank" rel="noopener">{{ product.ctaBtnLabel }}</a></div>
+<div class="other-progs"><p class="other-progs-h">Outros programas</p><div class="other-progs-row"><sc-for list="{{ otherProducts }}" as="op" hint-placeholder-count="5"><button class="other-prog-item" onClick="{{ op.onOpen }}"><span class="op-tag">{{ op.tag }}</span><span class="op-name">{{ op.name }}</span><span class="op-arrow">→</span></button></sc-for></div></div>
+</div></div></sc-if>
+
+<sc-if value="{{ isLogin }}" hint-placeholder-val="{{ false }}"><div class="wrap"><div class="login-wrap"><form class="login-card" onSubmit="{{ onLoginSubmit }}">
+<div class="login-badge">C</div>
+<h3 class="login-h">Área restrita</h3>
+<p class="login-s">Acesso exclusivo do time comercial para cadastrar e personalizar propostas por cliente.</p>
+<div class="field"><span class="label">Senha de acesso</span><input class="input" type="password" placeholder="••••••••" value="{{ loginPass }}" onInput="{{ onLoginPass }}" autofocus></div>
+<sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}"><p class="login-err">Senha incorreta. Tente novamente.</p></sc-if>
+<button type="submit" class="btn btn-brand" style="width:100%;justify-content:center;margin-top:6px">Entrar →</button>
+</form></div></div></sc-if>
+<sc-if value="{{ isClients }}" hint-placeholder-val="{{ false }}"><div class="wrap">
+<div style="padding-top:40px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px"><div><div class="eyebrow">Modo comercial</div><h1 class="sec-title" style="font-size:32px;margin-top:8px">Área restrita</h1><p class="lead" style="font-size:16px;margin-top:10px">Cadastre clientes para personalizar propostas, ou edite o conteúdo público dos programas.</p></div><button class="logout-link" style="margin-top:14px;white-space:nowrap" onClick="{{ doLogout }}">Sair da área restrita</button></div>
+<div class="admin-tabs"><button class="{{ tabClientsClass }}" onClick="{{ onTabClients }}">Clientes</button><button class="{{ tabProductsClass }}" onClick="{{ onTabProducts }}">Conteúdo dos programas</button></div>
+<sc-if value="{{ adminIsClients }}" hint-placeholder-val="{{ true }}">
+<div class="cl-wrap">
+<div class="card">
+<h3 class="card-h">{{ formTitle }}</h3><p class="card-s">Suba o logo para detectar as cores automaticamente, ou ajuste manualmente.</p>
+<div class="field"><span class="label">Nome da empresa</span><input class="input" placeholder="Ex.: Malwee, WEG, Marisol…" value="{{ draft.name }}" onInput="{{ onName }}"></div>
+<div class="field"><span class="label">Setor (opcional)</span><input class="input" placeholder="Ex.: Indústria têxtil" value="{{ draft.sector }}" onInput="{{ onSector }}"></div>
+<label class="chk-row"><input type="checkbox" checked="{{ draft.isDefault }}" onChange="{{ onIsDefault }}"><span>Usar como opção geral — aplica cores/logo sem personalizar textos com o nome</span></label>
+<div class="field"><span class="label">Logo da empresa</span>
+<sc-if value="{{ hasDraftLogo }}" hint-placeholder-val="{{ false }}"><div class="logo-prev"><img ref="{{ draftLogoRef }}" alt=""><div><div style="font-size:13px;font-weight:600;margin-bottom:4px">Logo carregado</div><label class="lp-swap">Trocar imagem<input type="file" accept="image/*" style="display:none" onChange="{{ onLogo }}"></label></div></div></sc-if>
+<sc-if value="{{ noDraftLogo }}" hint-placeholder-val="{{ true }}"><label class="drop"><input type="file" accept="image/*" onChange="{{ onLogo }}"><div class="drop-ico">↑</div><div class="drop-t">Clique para enviar o logo</div><div class="drop-s">PNG, JPG ou SVG · as cores são extraídas automaticamente</div></label></sc-if>
+</div>
+<sc-if value="{{ hasPalette }}" hint-placeholder-val="{{ false }}"><div class="field"><p class="detected">Cores detectadas no logo — clique para usar como primária:</p><div class="sw-row"><sc-for list="{{ paletteSwatches }}" as="s" hint-placeholder-count="5"><div class="sw" style="{{ s.style }}" onClick="{{ s.onPick }}" title="{{ s.hex }}"></div></sc-for></div></div></sc-if>
+<div class="field"><span class="label">Cores da marca</span><div class="colors">
+<label class="cc"><input type="color" value="{{ draft.primary }}" onInput="{{ onPrimary }}"><div class="cc-meta"><div class="cc-l">Primária</div><div class="cc-v">{{ draft.primary }}</div></div></label>
+<label class="cc"><input type="color" value="{{ draft.secondary }}" onInput="{{ onSecondary }}"><div class="cc-meta"><div class="cc-l">Secundária</div><div class="cc-v">{{ draft.secondary }}</div></div></label>
+</div></div>
+<div class="field"><span class="label">Prévia do tema</span><div class="prev-box"><div class="prev-bar" style="{{ prevBarStyle }}"><span style="font-family:'Space Grotesk';font-weight:600;font-size:13px">{{ draftName }}</span><span style="font-size:11px;opacity:.8">Educação Corporativa</span></div><div class="prev-body"><span class="prev-btn" style="{{ prevBtnStyle }}">Ver programas</span><span class="prev-pill" style="{{ prevPillStyle }}">Diagnóstico</span></div></div></div>
+<div class="form-actions"><button class="btn btn-brand" style="flex:1;justify-content:center" onClick="{{ onSave }}">{{ saveLabel }}</button><sc-if value="{{ isEditing }}" hint-placeholder-val="{{ false }}"><button class="btn btn-ghost" onClick="{{ onCancel }}">Cancelar</button></sc-if></div>
+</div>
+<div>
+<div class="cl-list-h"><h3 class="cl-list-t">Clientes cadastrados</h3><span class="cl-count">{{ clientCount }}</span></div>
+<sc-if value="{{ hasClients }}" hint-placeholder-val="{{ true }}"><div class="cl-grid"><sc-for list="{{ clientList }}" as="c" hint-placeholder-count="2">
+<div class="{{ c.itemClass }}" style="{{ c.itemStyle }}">
+<div class="cl-item-top"><sc-if value="{{ c.logo }}" hint-placeholder-val="{{ false }}"><img class="cl-item-logo" ref="{{ c.logoRef }}" alt=""></sc-if><sc-if value="{{ c.noLogo }}" hint-placeholder-val="{{ true }}"><div class="cl-item-dot" style="{{ c.dotStyle }}">{{ c.initial }}</div></sc-if><div><p class="cl-item-name">{{ c.name }}<sc-if value="{{ c.isDefault }}" hint-placeholder-val="{{ false }}"><span class="cl-badge">Padrão</span></sc-if></p><p class="cl-item-sector">{{ c.sector }}</p></div></div>
+<div class="cl-swatch"><span style="{{ c.swPrimary }}"></span><span style="{{ c.swSecondary }}"></span></div>
+<div class="cl-item-acts"><button class="{{ c.activateClass }}" onClick="{{ c.onActivate }}">{{ c.activateLabel }}</button><button class="mini" onClick="{{ c.onEdit }}">Editar</button><button class="mini-x" onClick="{{ c.onDelete }}">Excluir</button></div>
+</div>
+</sc-for></div></sc-if>
+<sc-if value="{{ noClients }}" hint-placeholder-val="{{ false }}"><div class="empty"><div style="font-size:34px;opacity:.3">◷</div><p class="empty-h">Nenhum cliente ainda</p><p style="font-size:14px;margin:0">Cadastre a primeira empresa ao lado para começar.</p></div></sc-if>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ adminIsProducts }}" hint-placeholder-val="{{ false }}">
+<div class="pc-wrap">
+<div class="pc-list"><sc-for list="{{ productTabs }}" as="pt" hint-placeholder-count="6"><button class="{{ pt.itemClass }}" onClick="{{ pt.onSelect }}"><span>{{ pt.name }}</span><sc-if value="{{ pt.customized }}" hint-placeholder-val="{{ false }}"><span class="pc-dot" title="Conteúdo personalizado"></span></sc-if></button></sc-for></div>
+<div class="card">
+<h3 class="card-h">Editar conteúdo público</h3><p class="card-s">Alterações aqui refletem imediatamente na página pública do programa.</p>
+<div class="field"><span class="label">Nome do programa</span><input class="input" value="{{ pDraft.name }}" onInput="{{ onPName }}"></div>
+<div class="field"><span class="label">Selo / categoria</span><input class="input" value="{{ pDraft.tag }}" onInput="{{ onPTag }}"></div>
+<div class="field"><span class="label">Frase de destaque (cards e topo da página)</span><textarea class="input textarea" rows="2" value="{{ pDraft.pitch }}" onInput="{{ onPPitch }}"></textarea></div>
+<div class="field"><span class="label">Manifesto (frase grande na página do programa)</span><textarea class="input textarea" rows="2" value="{{ pDraft.manifesto }}" onInput="{{ onPManifesto }}"></textarea></div>
+<sc-if value="{{ pIsStd }}" hint-placeholder-val="{{ true }}">
+<div class="field"><span class="label">Texto do programa (um parágrafo por linha em branco)</span><textarea class="input textarea" rows="7" value="{{ pDraft.bodyText }}" onInput="{{ onPBody }}"></textarea></div>
+<div class="field"><span class="label">Pontos-chave (um por linha)</span><textarea class="input textarea" rows="4" value="{{ pDraft.pointsText }}" onInput="{{ onPPoints }}"></textarea></div>
+</sc-if>
+<div class="field"><span class="label">Chamada final — título</span><input class="input" value="{{ pDraft.ctaTitle }}" onInput="{{ onPCtaTitle }}"></div>
+<div class="field"><span class="label">Chamada final — subtítulo</span><input class="input" value="{{ pDraft.ctaSub }}" onInput="{{ onPCtaSub }}"></div>
+<div class="form-actions"><button class="btn btn-brand" style="flex:1;justify-content:center" onClick="{{ onPSave }}">Salvar conteúdo</button><button class="btn btn-ghost" onClick="{{ onPPreview }}">Ver página →</button></div>
+<sc-if value="{{ pIsCustomized }}" hint-placeholder-val="{{ false }}"><button class="logout-link" style="margin-top:16px" onClick="{{ onPReset }}">↻ Restaurar texto original deste programa</button></sc-if>
+</div>
+</div>
+</sc-if>
+</div></sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultPrimary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#3B6EF6&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Marca Católica (padrão)&quot;},&quot;defaultSecondary&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#10245E&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Marca Católica (padrão)&quot;},&quot;heroStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;Editorial&quot;,&quot;options&quot;:[&quot;Editorial&quot;,&quot;Centralizado&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Layout&quot;},&quot;loginPassword&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;catolica2026&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Acesso restrito&quot;},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;5547999999999&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contato&quot;}}">
+class Component extends DCLogic {
+  state = {
+    view: 'home', productId: null,
+    clients: [], activeId: null,
+    draft: { name:'', logo:null, primary:'#3B6EF6', secondary:'#10245E', sector:'', palette:[], isDefault:false },
+    editingId: null,
+    diag: { i:0, scores:{}, multi:[], done:false, lead:{name:'',email:'',area:''}, leadError:false },
+    authed: false, loginPass:'', loginError:false,
+    adminTab:'clients', productOverrides:{}, selectedProductId:'legado',
+    pDraft:{name:'',tag:'',pitch:'',manifesto:'',bodyText:'',pointsText:'',ctaTitle:'',ctaSub:''}
+  };
+
+TRILHAS = [
+    {num:'01',name:'Integração — Onboarding Estruturado',tag:'Porque o primeiro dia decide os próximos quatro anos.',audience:'Novos colaboradores',duration:'12 semanas'},
+    {num:'02',name:'Cultura — Gerações',tag:'Quando o estagiário ensina o diretor, a empresa aprende duas vezes.',audience:'Todos os níveis',duration:'8 semanas'},
+    {num:'03',name:'Diversidade — Inclusão & Equidade',tag:'Diversidade se declara no press release. Inclusão se pratica na reunião de segunda.',audience:'Lideranças e equipes',duration:'8 semanas'},
+    {num:'04',name:'Carreira — Acelerador de Transição',tag:'Mudar de área não deveria parecer recomeçar do zero.',audience:'Profissionais em transição',duration:'10 semanas'},
+    {num:'05',name:'Gestão — Escritório de Projetos',tag:'O projeto que nunca termina começa na reunião que nunca deveria ter acontecido.',audience:'Analistas e gestores',duration:'12 semanas'},
+    {num:'06',name:'Desenvolvimento — Liderança',tag:'Ninguém nasce líder. Mas alguns aprendem antes dos outros.',audience:'Coordenadores a diretores',duration:'16 semanas'},
+    {num:'07',name:'Bem-estar — Saúde Mental no Trabalho',tag:'O colaborador que pede demissão raramente estava bem há semanas.',audience:'Todos + líderes',duration:'8 semanas'}
+  ];
+
+  PRODUCTS = [
+    { id:'legado', name:'Católica Legado', tag:'Talentos & Pipeline',
+      pitch:'Um pipeline de talentos formado sob medida — e 10 profissionais curados desde o primeiro dia.',
+      manifesto:'Um programa de troca real. Não de treinamento.',
+      stats:[{v:'10',l:'Talentos curados imediatamente'},{v:'4 anos',l:'Ciclo de formação e pipeline'},{v:'30 dias',l:'SLA de substituição'}],
+      body:[
+        'O mercado de talentos é um leilão. Toda empresa compete pelas mesmas pessoas, nos mesmos portais, com os mesmos benefícios. O Católica Legado existe para quem entendeu que isso não é sustentável.',
+        'No programa, a empresa investe na formação de pessoas desde o início da graduação. Em troca, recebe imediatamente 10 profissionais curados pelo Católica Carreiras — avaliados por competência, não apenas por currículo.',
+        'Ao longo de 4 anos, você constrói um pipeline de talentos que já conhece sua cultura antes de assinar a carteira. Não é filantropia: é investimento estratégico em infraestrutura humana, com retorno duplo — talento hoje e talento formado para você amanhã.'
+      ],
+      points:['10 profissionais curados imediatamente','Curadoria por competência, não por currículo','Pipeline construído ao longo de 4 anos','Retorno duplo: talento hoje e amanhã'],
+      blocks:[
+        {isList:true,heading:'Para a sua empresa',items:['10 profissionais curados e disponíveis imediatamente','Pipeline alinhado à cultura antes mesmo da contratação','Custo de recrutamento reduzido','Redução de turnover e marca empregadora mais forte na região']},
+        {isList:true,heading:'Para o talento',items:['Bolsa integral ou parcial garantida desde o início da graduação','Inclusão no processo seletivo da empresa parceira','Projetos reais aplicados durante o curso','Acompanhamento de carreira do primeiro ano à contratação']},
+        {isList:true,heading:'Para a Católica',items:['Contrato de longo prazo, renovável','Vínculo profundo com empresas âncora da região','Prova viva de relevância: formação que vira emprego']}
+      ],
+      cta:['Quer começar a formar o seu pipeline?','Vamos desenhar o Católica Legado para a sua operação.'] },
+    { id:'posco', name:'Pós Co. MBA', tag:'Pós-graduação',
+      pitch:'Uma pós-graduação co-desenhada para as necessidades reais da sua empresa.',
+      manifesto:'A empresa entra com o problema. A Católica entra com a ciência. O diploma sai com os dois.',
+      stats:[{v:'18 meses',l:'Duração média'},{v:'360h',l:'Carga horária'},{v:'Turma fechada',l:'Exclusiva para o seu time'},{v:'Diploma co-assinado',l:'Certificação MEC'}],
+      body:[
+        'Uma pós-graduação realizada em cooperação, desenhada a partir das necessidades reais da sua empresa.',
+        'O currículo é construído em conjunto — combinando o rigor acadêmico da Católica SC com os desafios concretos do seu negócio, em uma turma dedicada ao seu time, com diploma co-assinado.'
+      ],
+      points:['Currículo co-desenhado com a empresa','Turma dedicada ao seu time','Rigor acadêmico reconhecido','Aplicação direta ao negócio'],
+      blocks:[
+        {isSteps:true,heading:'Como funciona',items:[
+          {n:'01',t:'Diagnóstico',d:'Mapeamento dos gaps estratégicos para escolher a pós de maior impacto.'},
+          {n:'02',t:'Co-construção',d:'Currículo desenvolvido com professores selecionados por fit técnico e setorial, com cases reais da sua operação.'},
+          {n:'03',t:'Certificação',d:'Turma fechada, cronograma adaptado à rotina da empresa, diploma co-assinado com certificação MEC.'}
+        ]},
+        {isList:true,heading:'Áreas disponíveis para co-assinatura',items:['Liderança Avançada & Gestão de Pessoas','Gestão Industrial & Operações','Tecnologia, Inovação & Dados','Supply Chain & Sustentabilidade','Direito Empresarial & Compliance','Desenvolvimento Organizacional']}
+      ],
+      cta:['Uma pós com a cara da sua empresa.','Vamos montar a turma e o currículo em cooperação.'] },
+    { id:'incompany', name:'In-Company', tag:'Formação sob medida',
+      pitch:'Formação sob medida em que cada módulo entrega algo aplicável já no próximo dia.',
+      manifesto:'O que foi aprendido na quinta, aplica na segunda.',
+      stats:[{v:'7 trilhas',l:'Programas ativos'},{v:'8–12',l:'Pessoas por squad'},{v:'30 dias',l:'Follow-up de impacto'}],
+      body:[
+        'Formação in-company desenhada para a realidade do cliente. Cada módulo termina com um entregável concreto — algo aplicável já no próximo dia de trabalho.',
+        'Porque treinamento sem continuidade não forma, apenas entretém. Aqui, aprendizado e execução andam sempre juntos, com o método Fator Dia Seguinte™.'
+      ],
+      points:['Conteúdo desenhado para a sua realidade','Entregável concreto a cada módulo','Aplicação imediata no trabalho','Continuidade que forma, não entretém'],
+      blocks:[
+        {isList:true,heading:'O método Fator Dia Seguinte™',items:['Entregável concreto por módulo — o conhecimento vira ação antes do fim do dia','Squads de 8 a 12 pessoas do mesmo contexto, sem mistura de hierarquias','Follow-up estruturado de 30 dias para medir impacto real — não entusiasmo passageiro']},
+        {isTrilhas:true,heading:'As 7 trilhas',items:this.TRILHAS},
+        {isList:true,heading:'O que vem junto em todas as trilhas',items:['Diagnóstico inicial da necessidade específica antes de qualquer módulo iniciar','Material desenvolvido para a realidade da empresa — nada de conteúdo genérico de prateleira','Certificação MEC para todos os participantes que concluírem','Relatório de impacto entregue à liderança ao final de cada programa']}
+      ],
+      cta:['Formação que sua equipe usa amanhã.','Vamos desenhar os módulos a partir dos seus desafios.'] },
+    { id:'uc', name:'UC by CatólicaSC', tag:'Universidade corporativa',
+      pitch:'A universidade corporativa da sua empresa — sem custar milhões nem levar anos.',
+      manifesto:'Décadas de infraestrutura acadêmica. Centenas de professores. Só falta o seu nome.',
+      stats:[{v:'500+',l:'Professores especializados'},{v:'18',l:'Áreas de conhecimento'},{v:'90 dias',l:'Para estar no ar'},{v:'MEC',l:'Certificação nacional'}],
+      body:[
+        'Montar uma universidade corporativa do zero custa milhões e leva anos.',
+        'A UC by CatólicaSC é a universidade corporativa da sua empresa — com a identidade da empresa, os programas que ela precisa e o rigor acadêmico que o mercado reconhece.'
+      ],
+      points:['Identidade visual da sua empresa','Programas sob medida','Rigor acadêmico reconhecido','Estrutura pronta, sem anos de espera'],
+      blocks:[
+        {isTable:true,heading:'Por que adotar, não construir',rows:[
+          {a:'Construir uma UC própria',b:'Anos de projeto, CAPEX alto e infraestrutura ociosa — enquanto isso o talento não para de sair.',c:'Ativa em 90 dias, sem CAPEX — a estrutura já existe.'},
+          {a:'Plataformas genéricas de e-learning',b:'Conteúdo de prateleira, sem contexto da empresa.',c:'Programas customizados, desenhados para a realidade do cliente.'},
+          {a:'Treinamentos pontuais',b:'O efeito se dissolve em semanas — não forma cultura.',c:'Trilhas estruturadas com certificação e SLA de impacto.'}
+        ]},
+        {isList:true,heading:'Os 6 pilares',items:['Professores — mais de 500 especialistas em 18 áreas','Áreas — cobertura completa da jornada do colaborador','Método — squads & sprints com entregável concreto','LMS — plataforma white-label com a marca da empresa','SLA — relatório executivo mensal de indicadores','MEC — certificação nacional reconhecida pelo mercado']},
+        {isTrilhas:true,heading:'As 7 trilhas permanentes',items:this.TRILHAS},
+        {isSteps:true,heading:'Implantação em 90 dias',items:[
+          {n:'01',t:'Diagnóstico',d:'Mapeamento de gaps, perfis e prioridades.'},
+          {n:'02',t:'Arquitetura da UC',d:'Definição de trilhas, identidade e roadmap anual.'},
+          {n:'03',t:'Ativação',d:'LMS no ar, primeiras trilhas lançadas, líderes treinados.'},
+          {n:'04',t:'Gestão contínua',d:'SLA mensal, revisão semestral, expansão conforme resultado.'}
+        ]}
+      ],
+      cta:['Sua universidade corporativa, pronta para operar.','Vamos estruturar a UC da sua empresa.'] },
+    { id:'diagnostico', name:'Diagnóstico Personalizado', tag:'Ferramenta', isDiag:true,
+      pitch:'4 perguntas. 3 minutos. As trilhas certas para o seu momento.',
+      manifesto:'Antes de criar um programa, precisamos entender o seu problema de verdade.',
+      body:[], points:[],
+      cta:['Prefere conversar direto?','Nosso time comercial interpreta o diagnóstico com você.'] },
+    { id:'exclusive', name:'Católica Exclusive', tag:'Alta liderança', premium:true,
+      pitch:'Uma jornada de transformação para 100 líderes por ano. O que vem depois de todos os cursos.',
+      manifesto:'Alguns chegam ao topo. Poucos chegam a si mesmos.',
+      stats:[{v:'100',l:'Líderes por ano'},{v:'4',l:'Turmas anuais'},{v:'7',l:'Experiências'},{v:'Seleção',l:'Entrada por convite e conversa'}],
+      body:[
+        '"Você construiu uma carreira brilhante. E agora?" Existe um momento na vida de todo líder de verdade em que os prêmios, os cargos e os números não respondem mais à pergunta que importa.',
+        'Você chegou onde planejou. Mas ainda sente que falta algo — e não é mais um projeto, mais uma promoção, mais uma conquista. É uma virada. Uma transformação que nenhum MBA foi projetado para entregar.',
+        'Acompanhamos 100 líderes por ano em uma jornada completa de transformação — física, mental, criativa e espiritual. Intensa, condensada e acompanhada do começo ao fim. Não é um curso. É o que vem depois de todos os cursos.'
+      ],
+      points:['100 líderes por ano, 4 turmas anuais','7 experiências de transformação completa','Acompanhamento contínuo do início ao fim','Entrada por seleção — não é só pagar'],
+      blocks:[
+        {isChapters:true,heading:'Os sete capítulos',items:[
+          {num:'I',title:'Check-up Completo',quote:'Saúde não é ausência de doença. É a base de tudo que vem depois.',partner:'Em parceria com Hospital Marcelino Champagnat'},
+          {num:'II',title:'Comer, Rezar, Amar',quote:'Três dias fora do mapa.',partner:''},
+          {num:'III',title:'Escreva seu Capítulo',quote:'Você tem algo a dizer. É hora de dizer.',partner:''},
+          {num:'IV',title:'Grife',quote:'A identidade que você carregou. Agora com a sua assinatura.',partner:'Em parceria com Evelyn · Páprica Stilist'},
+          {num:'V',title:'Origens',quote:'Antes de saber para onde vai, entenda de onde veio.',partner:'Com Clóvis de Barros Filho e Michel Alcoforado'},
+          {num:'VI',title:'Roma e o Papa',quote:'Uma audiência com o que é maior que você.',partner:'Exclusivo do pacote Exclusive + Roma'},
+          {num:'VII',title:'Surpresas',quote:'Se contássemos tudo, não teria graça.',partner:''}
+        ]},
+        {isNote:true,heading:'Sobre o que não está aqui',text:'O programa é desenhado para surpreender. Não revelamos tudo porque parte do valor está em chegar sem expectativa e sair sem palavras. Cada turma é diferente. Cada jornada, única. O que descrevemos acima é o mínimo do que você vai viver.'},
+        {isTable:true,heading:'Dois caminhos, uma transformação',rows:[
+          {a:'Exclusive',b:'Check-up completo, imersão Comer Rezar Amar, mentoria individual, grife assinada, conteúdo com Clóvis de Barros Filho e Michel Alcoforado, comunidade vitalícia com os 100 líderes do ano.',c:'A jornada completa de transformação.'},
+          {a:'Exclusive + Roma',b:'Tudo o que está incluso no pacote Exclusive.',c:'Mais viagem a Roma, visita ao Vaticano, audiência papal e encontro com líderes europeus na agenda.'}
+        ]}
+      ],
+      ctaButtonLabel:'Pedir participação →',
+      cta:['Esteja onde você sempre soube que deveria estar.','A entrada não é pela carteira. É pela conversa. 4 turmas por ano · 25 líderes por turma · Vagas abertas para 2027.'] }
+  ];
+
+  DIAG = [
+    { type:'single', q:'Qual é o principal foco de desenvolvimento da sua empresa agora?', opts:[
+      { label:'Desenvolver lideranças e times de gestão', w:{exclusive:2,uc:2} },
+      { label:'Atrair e formar talentos do zero', w:{legado:3} },
+      { label:'Fortalecer cultura e clima organizacional', w:{incompany:2,uc:1} },
+      { label:'Capacitação técnica e reskilling', w:{posco:2,incompany:1} },
+      { label:'Bem-estar, saúde mental e retenção', w:{incompany:2} },
+      { label:'Gestão de projetos e entrega de resultados', w:{incompany:2,posco:1} } ] },
+    { type:'multi', q:'Quais dessas dores você reconhece no seu time hoje?', sub:'Pode selecionar mais de uma.', opts:[
+      { label:'Dificuldade em atrair talentos qualificados na região', w:{legado:2} },
+      { label:'Lideranças sem preparo para gerir equipes sob pressão', w:{exclusive:2,uc:1} },
+      { label:'Alta rotatividade em cargos estratégicos', w:{legado:1,exclusive:1} },
+      { label:'Treinamentos que não geram resultado real no dia a dia', w:{incompany:2} },
+      { label:'Conflitos entre gerações e perfis diferentes', w:{incompany:1} },
+      { label:'Projetos que iniciam mas raramente entregam no prazo', w:{incompany:1,posco:1} },
+      { label:'Sinais de esgotamento ou desmotivação no time', w:{incompany:1,exclusive:1} },
+      { label:'Formação técnica que não acompanha a evolução do negócio', w:{posco:2,uc:1} } ] },
+    { type:'single', q:'Qual é a urgência?', sub:'Isso ajuda a definir o formato e o cronograma mais adequados.', opts:[
+      { label:'Preciso de solução nos próximos 90 dias', w:{incompany:2} },
+      { label:'Quero estruturar para o próximo semestre', w:{posco:1,uc:1} },
+      { label:'Pensando estrategicamente, a longo prazo', w:{uc:2,legado:1} } ] }
+  ];
+
+  componentDidMount() {
+    try {
+      const c = JSON.parse(localStorage.getItem('catsc_clients') || '[]');
+      const a = localStorage.getItem('catsc_active') || null;
+      const authed = sessionStorage.getItem('catsc_authed') === '1';
+      const ov = JSON.parse(localStorage.getItem('catsc_product_overrides') || '{}');
+      if (Array.isArray(c)) this.setState({ clients:c, activeId: a && c.find(x=>x.id===a) ? a : null, authed, productOverrides: ov||{} });
+      this.loadProductDraft('legado', ov||{});
+    } catch(e){}
+  }
+  persist(clients, activeId) {
+    try {
+      localStorage.setItem('catsc_clients', JSON.stringify(clients));
+      if (activeId===null) localStorage.removeItem('catsc_active'); else localStorage.setItem('catsc_active', activeId);
+    } catch(e){}
+  }
+
+  // ---- color helpers ----
+  hx(h){ h=(h||'').replace('#',''); if(h.length===3)h=h.split('').map(x=>x+x).join(''); const n=parseInt(h||'0',16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
+  toHex(r,g,b){ return '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join(''); }
+  lum(c){ const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)}; return .2126*f(c.r)+.7152*f(c.g)+.0722*f(c.b); }
+  hue(r,g,b){ r/=255;g/=255;b/=255; const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn; if(!d)return 0; let h; if(mx===r)h=((g-b)/d)%6; else if(mx===g)h=(b-r)/d+2; else h=(r-g)/d+4; h*=60; return h<0?h+360:h; }
+  hueDist(a,b){ let d=Math.abs(a-b)%360; return d>180?360-d:d; }
+
+  extractColors(dataUrl){
+    return new Promise(res=>{
+      const img=new Image();
+      img.onload=()=>{
+        try{
+          const s=64,c=document.createElement('canvas');c.width=s;c.height=s;
+          const ctx=c.getContext('2d');ctx.drawImage(img,0,0,s,s);
+          const d=ctx.getImageData(0,0,s,s).data,bk={};
+          for(let i=0;i<d.length;i+=4){
+            const r=d[i],g=d[i+1],b=d[i+2],a=d[i+3];
+            if(a<128)continue;
+            const mx=Math.max(r,g,b),mn=Math.min(r,g,b),sat=mx===0?0:(mx-mn)/mx,l=.299*r+.587*g+.114*b;
+            if(l>242||l<16)continue;
+            const k=(r>>4)+'_'+(g>>4)+'_'+(b>>4);
+            if(!bk[k])bk[k]={r:0,g:0,b:0,n:0,s:0};
+            const o=bk[k];o.r+=r;o.g+=g;o.b+=b;o.n++;o.s+=sat;
+          }
+          let arr=Object.values(bk).map(o=>({r:o.r/o.n,g:o.g/o.n,b:o.b/o.n,n:o.n,sat:o.s/o.n}));
+          if(!arr.length){res(null);return}
+          arr.forEach(x=>x.score=x.n*(0.35+x.sat*1.4));
+          arr.sort((a,b)=>b.score-a.score);
+          const top=arr.slice(0,6);
+          const primary=top[0];
+          const h1=this.hue(primary.r,primary.g,primary.b);
+          let sec=null,best=-1;
+          for(const x of top){ if(x===primary)continue; const dh=this.hueDist(this.hue(x.r,x.g,x.b),h1); const sc=(dh+15)*(0.3+x.sat)*Math.log(x.n+2); if(sc>best){best=sc;sec=x;} }
+          if(!sec)sec=primary;
+          res({ primary:this.toHex(primary.r,primary.g,primary.b), secondary:this.toHex(sec.r,sec.g,sec.b), palette:top.map(x=>this.toHex(x.r,x.g,x.b)) });
+        }catch(e){res(null);}
+      };
+      img.onerror=()=>res(null);
+      img.src=dataUrl;
+    });
+  }
+
+  // ---- navigation ----
+  go(view){ this.setState({view}); window.scrollTo(0,0); }
+  goClientsGated(){ if(this.state.authed){ this.go('clients'); } else { this.setState({view:'login', loginPass:'', loginError:false}); window.scrollTo(0,0); } }
+  tryLogin(){
+    const pass = this.props.loginPassword ?? 'catolica2026';
+    if((this.state.loginPass||'')===pass){
+      try{ sessionStorage.setItem('catsc_authed','1'); }catch(e){}
+      this.setState({authed:true, view:'clients', loginError:false}); window.scrollTo(0,0);
+    } else {
+      this.setState({loginError:true});
+    }
+  }
+  logout(){
+    try{ sessionStorage.removeItem('catsc_authed'); }catch(e){}
+    this.setState({authed:false, view:'home'}); window.scrollTo(0,0);
+  }
+  setAdminTab(t){ this.setState({adminTab:t}); }
+  openProduct(id){ this.setState({view:'product', productId:id, diag:this.emptyDiag()}); window.scrollTo(0,0); }
+
+  activeClient(){ return this.state.clients.find(c=>c.id===this.state.activeId) || null; }
+
+  // ---- product content overrides ----
+  mergedProduct(id){
+    const base=this.PRODUCTS.find(p=>p.id===id);
+    const ov=this.state.productOverrides[id];
+    if(!base) return null;
+    return ov ? {...base, ...ov} : base;
+  }
+  persistOverrides(ov){ try{ localStorage.setItem('catsc_product_overrides', JSON.stringify(ov)); }catch(e){} }
+  loadProductDraft(id, overridesOverride){
+    const ov=(overridesOverride||this.state.productOverrides)[id];
+    const base=this.PRODUCTS.find(p=>p.id===id);
+    const m = ov? {...base,...ov} : base;
+    this.setState({ selectedProductId:id, pDraft:{
+      name:m.name, tag:m.tag, pitch:m.pitch, manifesto:m.manifesto,
+      bodyText:(m.body||[]).join('\n\n'), pointsText:(m.points||[]).join('\n'),
+      ctaTitle:m.cta?m.cta[0]:'', ctaSub:m.cta?m.cta[1]:''
+    }});
+  }
+  setPDraft(patch){ this.setState(st=>({pDraft:{...st.pDraft,...patch}})); }
+  savePDraft(){
+    const id=this.state.selectedProductId, d=this.state.pDraft;
+    const override={
+      name:d.name, tag:d.tag, pitch:d.pitch, manifesto:d.manifesto,
+      body:d.bodyText.split(/\n\s*\n/).map(t=>t.trim()).filter(Boolean),
+      points:d.pointsText.split('\n').map(t=>t.trim()).filter(Boolean),
+      cta:[d.ctaTitle,d.ctaSub]
+    };
+    const ov={...this.state.productOverrides, [id]:override};
+    this.persistOverrides(ov);
+    this.setState({productOverrides:ov});
+  }
+  resetPDraft(){
+    const id=this.state.selectedProductId;
+    const ov={...this.state.productOverrides}; delete ov[id];
+    this.persistOverrides(ov);
+    this.setState({productOverrides:ov});
+    this.loadProductDraft(id, ov);
+  }
+
+  computeTheme(){
+    const c=this.activeClient();
+    const dp=this.props.defaultPrimary || '#3B6EF6';
+    const ds=this.props.defaultSecondary || '#10245E';
+    const p=c&&c.primary?c.primary:dp, s=c&&c.secondary?c.secondary:ds;
+    const rgb=this.hx(p);
+    const on=this.lum(rgb)>0.52?'#14161d':'#ffffff';
+    return { '--brand':p,'--brand-2':s,'--brand-soft':`rgba(${rgb.r},${rgb.g},${rgb.b},.09)`,'--brand-line':`rgba(${rgb.r},${rgb.g},${rgb.b},.24)`,'--on-brand':on };
+  }
+
+  setDraft(patch){ this.setState(st=>({draft:{...st.draft,...patch}})); }
+
+  async onLogo(e){
+    const f=e.target.files&&e.target.files[0]; if(!f)return;
+    const reader=new FileReader();
+    reader.onload=async ev=>{
+      const url=ev.target.result;
+      this.setDraft({logo:url});
+      const pal=await this.extractColors(url);
+      if(pal) this.setDraft({primary:pal.primary,secondary:pal.secondary,palette:pal.palette});
+    };
+    reader.readAsDataURL(f);
+  }
+
+  saveClient(){
+    const d=this.state.draft;
+    const name=(d.name||'').trim();
+    if(!name){ return; }
+    let clients=[...this.state.clients], id=this.state.editingId;
+    const rec={ id: id||('c'+Date.now()), name, sector:(d.sector||'').trim(), logo:d.logo, primary:d.primary, secondary:d.secondary, isDefault:!!d.isDefault };
+    if(id){ clients=clients.map(c=>c.id===id?rec:c); } else { clients.unshift(rec); }
+    this.persist(clients, rec.id);
+    this.setState({ clients, activeId:rec.id, editingId:null, draft:{name:'',logo:null,primary:'#3B6EF6',secondary:'#10245E',sector:'',palette:[],isDefault:false}, view:'home' });
+    window.scrollTo(0,0);
+  }
+  editClient(id){ const c=this.state.clients.find(x=>x.id===id); if(!c)return; this.setState({editingId:id, draft:{name:c.name,logo:c.logo,primary:c.primary,secondary:c.secondary,sector:c.sector||'',isDefault:!!c.isDefault,palette:[]}}); window.scrollTo(0,0); }
+  deleteClient(id){ const clients=this.state.clients.filter(c=>c.id!==id); const activeId=this.state.activeId===id?null:this.state.activeId; this.persist(clients,activeId); this.setState({clients,activeId, editingId:this.state.editingId===id?null:this.state.editingId}); }
+  cancelEdit(){ this.setState({editingId:null, draft:{name:'',logo:null,primary:'#3B6EF6',secondary:'#10245E',sector:'',palette:[],isDefault:false}}); }
+  activate(id){ const nid=this.state.activeId===id?null:id; this.persist(this.state.clients,nid); this.setState({activeId:nid}); }
+
+  emptyDiag(){ return { i:0, scores:{}, multi:[], done:false, lead:{name:'',email:'',area:''}, leadError:false }; }
+  answerDiag(qi,w){
+    this.setState(st=>{
+      const scores={...st.diag.scores};
+      Object.keys(w).forEach(k=>scores[k]=(scores[k]||0)+w[k]);
+      return { diag:{ ...st.diag, i:st.diag.i+1, scores } };
+    });
+  }
+  toggleMultiDiag(idx){
+    this.setState(st=>{
+      const has=st.diag.multi.includes(idx);
+      const multi= has? st.diag.multi.filter(x=>x!==idx) : [...st.diag.multi, idx];
+      return { diag:{...st.diag, multi} };
+    });
+  }
+  confirmMultiDiag(qi,opts){
+    this.setState(st=>{
+      const scores={...st.diag.scores};
+      st.diag.multi.forEach(idx=>{ const w=opts[idx].w; Object.keys(w).forEach(k=>scores[k]=(scores[k]||0)+w[k]); });
+      return { diag:{...st.diag, i:st.diag.i+1, scores, multi:[]} };
+    });
+  }
+  setLead(patch){ this.setState(st=>({diag:{...st.diag, lead:{...st.diag.lead,...patch}, leadError:false}})); }
+  submitLead(e){
+    e.preventDefault();
+    const email=(this.state.diag.lead.email||'').trim();
+    if(!email || !email.includes('@')){ this.setState(st=>({diag:{...st.diag, leadError:true}})); return; }
+    this.setState(st=>({diag:{...st.diag, done:true}}));
+  }
+  restartDiag(){ this.setState({diag:this.emptyDiag()}); }
+
+  recProducts(){
+    const s=this.state.diag.scores;
+    const ranked=this.PRODUCTS.filter(p=>!p.isDiag).map(p=>({p,score:s[p.id]||0})).sort((a,b)=>b.score-a.score);
+    let top=ranked.filter(r=>r.score>0);
+    if(top.length<2){ const extra=ranked.filter(r=>r.score===0); top=top.concat(extra); }
+    return { primary:top[0].p, secondary:(top[1]||top[0]).p };
+  }
+
+  renderVals(){
+    const st=this.state, view=st.view;
+    const ac=this.activeClient();
+    const initial=(n)=>((n||'?').trim()[0]||'?').toUpperCase();
+
+    const cards=this.PRODUCTS.map((base,i)=>{ const p=this.mergedProduct(base.id); return {
+      id:p.id, name:p.name, tag:p.tag, pitch:p.pitch,
+      num:'0'+(i+1), premium:!!p.premium, standard:!p.premium,
+      cardClass: p.premium?'prod-card premium':'prod-card',
+      onOpen:()=>this.openProduct(p.id)
+    };});
+
+    // current product
+    const p=this.mergedProduct(st.productId)||this.mergedProduct('legado');
+    const product={
+      id:p.id, name:p.name, tag:p.tag, manifesto:p.manifesto,
+      body:p.body, isDiag:!!p.isDiag, isStd:!p.isDiag,
+      pointList:(p.points||[]).map((t,i)=>({n:'0'+(i+1),t})),
+      pvClass:p.premium?'pv premium':'pv',
+      ctaTitle:p.cta?p.cta[0]:'', ctaSub:p.cta?p.cta[1]:'', ctaBtnLabel:p.ctaButtonLabel||'Falar com o time comercial →',
+      hasStats:!!(p.stats&&p.stats.length), stats:p.stats||[],
+      blocks:(p.blocks||[]).map(b=>({
+        isList:!!b.isList, isSteps:!!b.isSteps, isTable:!!b.isTable, isTrilhas:!!b.isTrilhas, isChapters:!!b.isChapters, isNote:!!b.isNote,
+        heading:b.heading, text:b.text||'',
+        items: b.isList ? b.items : (b.isSteps ? b.items : (b.isTrilhas ? b.items : (b.isChapters ? b.items : []))),
+        rows: b.isTable ? b.rows : []
+      }))
+    };
+
+    const waNumber = (this.props.whatsappNumber || '5547999999999').replace(/\D/g,'');
+    const waMsg = (ac && !ac.isDefault)
+      ? `Olá! Sou da ${ac.name} e gostaria de saber mais sobre o ${p.name}.`
+      : `Olá! Gostaria de saber mais sobre o ${p.name}.`;
+    const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`;
+
+    // diagnostic
+    const di=st.diag.i, totalSteps=this.DIAG.length+1;
+    const isQuestionStep = di < this.DIAG.length;
+    const dq = isQuestionStep ? this.DIAG[di] : null;
+    const diagIsSingle = isQuestionStep && dq.type==='single';
+    const diagIsMulti = isQuestionStep && dq.type==='multi';
+    const diagIsLead = !isQuestionStep && !st.diag.done;
+    const diagQ = isQuestionStep ? {
+      q:dq.q, sub:dq.sub||'',
+      opts: dq.type==='single'
+        ? dq.opts.map(o=>({label:o.label,onPick:()=>this.answerDiag(di,o.w)}))
+        : dq.opts.map((o,idx)=>({label:o.label,selected:st.diag.multi.includes(idx),optClass:st.diag.multi.includes(idx)?'diag-opt diag-multi sel':'diag-opt diag-multi',onPick:()=>this.toggleMultiDiag(idx)}))
+    } : {q:'',sub:'',opts:[]};
+    const diagCanConfirm = st.diag.multi.length>0;
+    const diagConfirmMulti = ()=>this.confirmMultiDiag(di, dq?dq.opts:[]);
+    const rec=st.diag.done?this.recProducts():null;
+    const recPrimaryM=rec?this.mergedProduct(rec.primary.id):null;
+    const recSecondaryM=rec?this.mergedProduct(rec.secondary.id):null;
+    const diagRec=rec?{name:recPrimaryM.name,pitch:recPrimaryM.pitch,onOpen:()=>this.openProduct(rec.primary.id)}:{name:'',pitch:'',onOpen:()=>{}};
+    const diagSec=rec?{name:recSecondaryM.name,onOpen:()=>this.openProduct(rec.secondary.id)}:{name:'',onOpen:()=>{}};
+
+    // clients list
+    const clientList=st.clients.map(c=>{
+      const active=c.id===st.activeId;
+      return {
+        id:c.id, name:c.name, sector:c.sector||'—', logo:c.logo, noLogo:!c.logo, initial:initial(c.name),
+        isDefault:!!c.isDefault,
+        logoRef:(el)=>{ if(el) el.src = c.logo || ''; },
+        itemClass: active?'cl-item active':'cl-item',
+        itemStyle: active?`--ci:${c.primary}`:'',
+        dotStyle:`background:${c.primary}`,
+        swPrimary:`background:${c.primary}`, swSecondary:`background:${c.secondary}`,
+        activateClass: active?'mini solid is':'mini solid',
+        activateLabel: active?'✓ Ativo':'Ativar',
+        onActivate:()=>this.activate(c.id),
+        onEdit:()=>this.editClient(c.id),
+        onDelete:()=>this.deleteClient(c.id)
+      };
+    });
+
+    const d=st.draft;
+    const paletteSwatches=(d.palette||[]).map(hex=>({hex,style:`background:${hex}`,onPick:()=>this.setDraft({primary:hex})}));
+
+    const heroLead = (ac && !ac.isDefault)
+      ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${ac.name}.`
+      : 'Programas de educação corporativa que unem o rigor acadêmico da Católica SC à realidade do seu negócio. Cada iniciativa nasce de um problema real e termina em resultado aplicável.';
+
+    return {
+      themeVars:this.computeTheme(),
+      isHome:view==='home', isProduct:view==='product', isClients:view==='clients', isLogin:view==='login',
+      navHome:view==='home'?'nav-link on':'nav-link',
+      isAuthed: st.authed,
+      loginPass: st.loginPass, loginError: st.loginError,
+      onLoginPass:e=>this.setState({loginPass:e.target.value, loginError:false}),
+      onLoginSubmit:e=>{ e.preventDefault(); this.tryLogin(); },
+      doLogout:()=>this.logout(),
+      goHome:()=>this.go('home'),
+      goProducts:()=>{ this.setState({view:'home'}); setTimeout(()=>{ const el=document.getElementById('programas'); window.scrollTo(0, el?Math.max(0, el.getBoundingClientRect().top+window.pageYOffset-90):0); }, 60); },
+      goClients:()=>this.goClientsGated(),
+      goDiagnostico:()=>this.openProduct('diagnostico'),
+      clearClient:e=>{ if(e&&e.stopPropagation)e.stopPropagation(); this.activate(st.activeId); },
+      hasClient:!!ac, noClient:!ac,
+      heroPersonalized: !!ac && !ac.isDefault, heroGeneric: !ac || !!ac.isDefault,
+      chipLabel: (ac && ac.isDefault) ? 'Tema ativo' : 'Proposta para',
+      activeClient: ac?{name:ac.name,logo:ac.logo,initial:initial(ac.name)}:{name:'',logo:null,initial:''},
+      chipLogoRef:(el)=>{ if(el) el.src = (ac&&ac.logo)?ac.logo:''; },
+      noLogo: ac?!ac.logo:false,
+      heroClass: (this.props.heroStyle==='Centralizado')?'hero center':'hero',
+      heroLead,
+      cards, product, waHref,
+      otherProducts: cards.filter(c=>c.id!==p.id).map(c=>({id:c.id,name:c.name,tag:c.tag,onOpen:c.onOpen})),
+      diagRunning: isQuestionStep, diagIsSingle, diagIsMulti, diagIsLead, diagDone: st.diag.done,
+      diagQ, diagRec, diagSec, diagCanConfirm, diagCantConfirm:!diagCanConfirm, diagConfirmMulti,
+      diagLead: st.diag.lead, diagLeadError: st.diag.leadError,
+      onLeadName:e=>this.setLead({name:e.target.value}),
+      onLeadEmail:e=>this.setLead({email:e.target.value}),
+      onLeadArea:e=>this.setLead({area:e.target.value}),
+      onLeadSubmit:e=>this.submitLead(e),
+      diagStepLabel:`${Math.min(di+1,totalSteps)} de ${totalSteps}`,
+      diagFillStyle:`width:${Math.round((di/totalSteps)*100)}%`,
+      restartDiag:()=>this.restartDiag(),
+      // clients admin
+      draft:{name:d.name,logo:d.logo,primary:d.primary,secondary:d.secondary,sector:d.sector,isDefault:d.isDefault},
+      draftName: d.name?d.name:'Nome da empresa',
+      hasDraftLogo:!!d.logo, noDraftLogo:!d.logo,
+      draftLogoRef:(el)=>{ if(el) el.src = d.logo || ''; },
+      hasPalette:(d.palette||[]).length>0, paletteSwatches,
+      onName:e=>this.setDraft({name:e.target.value}),
+      onSector:e=>this.setDraft({sector:e.target.value}),
+      onIsDefault:e=>this.setDraft({isDefault:e.target.checked}),
+      onPrimary:e=>this.setDraft({primary:e.target.value}),
+      onSecondary:e=>this.setDraft({secondary:e.target.value}),
+      onLogo:e=>this.onLogo(e),
+      onSave:()=>this.saveClient(), onCancel:()=>this.cancelEdit(),
+      isEditing:!!st.editingId,
+      formTitle: st.editingId?'Editar cliente':'Novo cliente',
+      saveLabel: st.editingId?'Salvar alterações':'Salvar e ativar',
+      prevBarStyle:`background:${d.primary}`,
+      prevBtnStyle:`background:${d.primary}`,
+      prevPillStyle:`background:${d.secondary}22;color:${d.secondary}`,
+      clientList, hasClients:st.clients.length>0, noClients:st.clients.length===0,
+      clientCount: st.clients.length===1?'1 cliente':`${st.clients.length} clientes`,
+      // admin tabs / product content editor
+      adminIsClients: st.adminTab==='clients', adminIsProducts: st.adminTab==='products',
+      tabClientsClass: st.adminTab==='clients'?'admin-tab on':'admin-tab',
+      tabProductsClass: st.adminTab==='products'?'admin-tab on':'admin-tab',
+      onTabClients:()=>this.setAdminTab('clients'), onTabProducts:()=>this.setAdminTab('products'),
+      productTabs: this.PRODUCTS.map(base=>({
+        id:base.id, name:this.mergedProduct(base.id).name,
+        itemClass: st.selectedProductId===base.id?'pc-item on':'pc-item',
+        customized: !!st.productOverrides[base.id],
+        onSelect:()=>this.loadProductDraft(base.id)
+      })),
+      pDraft: st.pDraft,
+      pIsStd: !(this.PRODUCTS.find(x=>x.id===st.selectedProductId)||{}).isDiag,
+      pIsCustomized: !!st.productOverrides[st.selectedProductId],
+      onPName:e=>this.setPDraft({name:e.target.value}),
+      onPTag:e=>this.setPDraft({tag:e.target.value}),
+      onPPitch:e=>this.setPDraft({pitch:e.target.value}),
+      onPManifesto:e=>this.setPDraft({manifesto:e.target.value}),
+      onPBody:e=>this.setPDraft({bodyText:e.target.value}),
+      onPPoints:e=>this.setPDraft({pointsText:e.target.value}),
+      onPCtaTitle:e=>this.setPDraft({ctaTitle:e.target.value}),
+      onPCtaSub:e=>this.setPDraft({ctaSub:e.target.value}),
+      onPSave:()=>this.savePDraft(),
+      onPReset:()=>this.resetPDraft(),
+      onPPreview:()=>this.openProduct(st.selectedProductId)
+    };
+  }
+}
+</script>
+</body>
+</html>
