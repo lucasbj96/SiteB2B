@@ -22,4 +22,5 @@ The design medium is **HTML/CSS/JS** — these are prototypes, not production co
 
 - `README.md` — this file
 - `chats/` — conversation transcripts (read these!)
-- `project/` — the `Site de produtos com personalização dinâmica` project files (HTML prototypes, assets, components)
+- `project/` — the `Site de produtos com personalização dinâmica` project files (HTML prototypes, assets, components) — the original Claude Design export, kept for reference.
+- `webapp/` — the real, production implementation (Next.js + Node.js API routes + Turso/SQLite), built from the design above. See `webapp/README.md` for what it does and how to deploy it.
