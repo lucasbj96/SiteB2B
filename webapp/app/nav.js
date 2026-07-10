@@ -9,9 +9,8 @@ export function Nav() {
   const pathname = usePathname();
   const isHome = pathname === "/";
 
-  const personalized = !!activeClient && !activeClient.isDefault;
-  const chipLabel = activeClient && activeClient.isDefault ? "Tema ativo" : "Proposta para";
-  const showChip = !!activeClient;
+  const chipLabel = "Proposta para";
+  const showChip = !!activeClient && !activeClient.isDefault;
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
