@@ -48,7 +48,7 @@ body{margin:0}
 .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:64px 0 28px;flex-wrap:wrap}
 .sec-title{font-family:'Space Grotesk';font-weight:600;font-size:26px;letter-spacing:-.02em;margin:6px 0 0}
 .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:20px}
-.prod-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 24px 22px;cursor:pointer;transition:.18s;display:flex;flex-direction:column;min-height:230px;overflow:hidden;text-align:left;font-family:inherit}
+.prod-card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px 24px 22px;cursor:pointer;transition:.18s;display:flex;flex-direction:column;min-height:230px;overflow:hidden;text-align:left;font-family:inherit;text-decoration:none;color:inherit}
 .prod-card:hover{border-color:var(--brand-line);transform:translateY(-3px);box-shadow:0 18px 40px -22px rgba(16,24,50,.28)}
 .prod-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
 .prod-num{font-family:'Space Grotesk';font-size:12px;font-weight:600;color:var(--faint);letter-spacing:.05em}
@@ -96,7 +96,7 @@ body{margin:0}
 .other-progs{margin:0 0 70px}
 .other-progs-h{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
 .other-progs-row{display:flex;flex-wrap:wrap;gap:10px}
-.other-prog-item{display:flex;align-items:center;gap:10px;font-family:inherit;font-size:14px;font-weight:600;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);cursor:pointer;transition:.15s}
+.other-prog-item{display:flex;align-items:center;gap:10px;font-family:inherit;font-size:14px;font-weight:600;padding:11px 16px;border:1px solid var(--line);border-radius:11px;background:var(--surface);cursor:pointer;transition:.15s;text-decoration:none;color:var(--ink)}
 .other-prog-item:hover{border-color:var(--brand-line);background:var(--brand-soft);color:var(--brand)}
 .op-tag{font-size:10px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
 .op-arrow{opacity:0;transition:.15s;margin-left:2px}
