@@ -33,7 +33,7 @@ function LoginForm() {
     <div className="wrap">
       <div className="login-wrap">
         <form className="login-card" onSubmit={onSubmit}>
-          <div className="login-badge">C</div>
+          <img className="login-badge" src="/assets/catolica-logo.png" alt="Católica SC" />
           <h3 className="login-h">Área restrita</h3>
           <p className="login-s">Acesso exclusivo do time autorizado da Católica SC.</p>
           <div className="field">
