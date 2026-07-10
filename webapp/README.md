@@ -60,6 +60,7 @@ O código já foi enviado para **https://github.com/lucasbj96/SiteB2B**. Não pr
 
 6. Clique em **Create Web Service**. O Render vai instalar as dependências e publicar o site — leva alguns minutos na primeira vez.
 7. Quando o status ficar **"Live"**, o Render mostra o endereço do site no topo da página (algo como `https://catolica-sitebd.onrender.com`). Esse é o link para acessar o sistema.
+8. **Importante — configurar o "Health Check Path"**: em **Settings** do serviço, procure o campo **Health Check Path** e preencha com `/api/health`. Sem isso, o Render pode confundir o redirecionamento de login (que é normal) com o site "fora do ar" e ficar reiniciando o serviço sozinho, causando erros intermitentes.
 
 ### 4. Primeiro acesso
 
