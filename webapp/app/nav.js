@@ -8,9 +8,10 @@ export function Nav() {
   const router = useRouter();
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const isAdmin = pathname.startsWith("/admin");
 
   const chipLabel = "Proposta para";
-  const showChip = !!activeClient && !activeClient.isDefault;
+  const showChip = isAdmin && !!activeClient && !activeClient.isDefault;
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
