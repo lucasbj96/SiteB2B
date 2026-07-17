@@ -22,6 +22,85 @@ function recProducts(products, scores) {
   return { primary: top[0].p, secondary: (top[1] || top[0]).p };
 }
 
+function TrilhasBlock({ heading, items }) {
+  const [categoria, setCategoria] = useState(null);
+  const [expanded, setExpanded] = useState(() => new Set());
+
+  const categorias = Array.from(new Set(items.map((t) => t.categoria)));
+  const filtered = categoria ? items.filter((t) => t.categoria === categoria) : items;
+
+  function toggle(titulo) {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(titulo)) next.delete(titulo);
+      else next.add(titulo);
+      return next;
+    });
+  }
+
+  return (
+    <div className="extra-block">
+      <h4 className="extra-h">{heading}</h4>
+      <div className="trilha-filters">
+        <button className={!categoria ? "trilha-filter on" : "trilha-filter"} onClick={() => setCategoria(null)}>
+          Geral
+        </button>
+        {categorias.map((c) => (
+          <button key={c} className={categoria === c ? "trilha-filter on" : "trilha-filter"} onClick={() => setCategoria(c)}>
+            {c}
+          </button>
+        ))}
+      </div>
+      <div className="trilhas-grid">
+        {filtered.map((tr) => {
+          const isOpen = expanded.has(tr.titulo);
+          return (
+            <div className={isOpen ? "trilha-card open" : "trilha-card"} key={tr.titulo} onClick={() => toggle(tr.titulo)}>
+              <div className="trilha-top">
+                <span className="trilha-name">{tr.titulo}</span>
+              </div>
+              <p className="trilha-tag">{tr.subtitulo}</p>
+              <div className="trilha-meta">
+                <span>{tr.publico}</span>
+                <span>{tr.duracao}</span>
+              </div>
+              <span className="trilha-toggle">{isOpen ? "Ocultar detalhes ↑" : "Ver detalhes ↓"}</span>
+              {isOpen && (
+                <div className="trilha-expand" onClick={(e) => e.stopPropagation()}>
+                  <div>
+                    <p className="trilha-expand-h">Conteúdo programático</p>
+                    <ul className="extra-list">
+                      {tr.conteudo.map((c, i) => (
+                        <li key={i}>{c}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="trilha-expand-h">Módulos</p>
+                    {tr.modulos.map((m, i) => (
+                      <div className="modulo-row" key={i}>
+                        <div className="modulo-top">
+                          <span className="modulo-nome">{m.nome}</span>
+                          <span className="modulo-carga">{m.carga}</span>
+                        </div>
+                        <p className="modulo-desc">{m.descricao}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <p className="trilha-expand-h">Entregável</p>
+                    <p className="trilha-entregavel">{tr.entregavel}</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function Block({ blk }) {
   if (blk.isList) {
     return (
@@ -70,26 +149,7 @@ function Block({ blk }) {
     );
   }
   if (blk.isTrilhas) {
-    return (
-      <div className="extra-block">
-        <h4 className="extra-h">{blk.heading}</h4>
-        <div className="trilhas-grid">
-          {blk.items.map((tr, i) => (
-            <div className="trilha-card" key={i}>
-              <div className="trilha-top">
-                <span className="trilha-num">{tr.num}</span>
-                <span className="trilha-name">{tr.name}</span>
-              </div>
-              <p className="trilha-tag">"{tr.tag}"</p>
-              <div className="trilha-meta">
-                <span>{tr.audience}</span>
-                <span>{tr.duration}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    return <TrilhasBlock heading={blk.heading} items={blk.items} />;
   }
   if (blk.isChapters) {
     return (
@@ -140,6 +200,11 @@ export default function ProductPage() {
       ? `Olá! Sou da ${activeClient.name} e gostaria de saber mais sobre o ${product.name}.`
       : `Olá! Gostaria de saber mais sobre o ${product.name}.`;
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`;
+
+  const personalized = !!activeClient && !activeClient.isDefault;
+  const trilhasHeading = personalized
+    ? `9 Trilhas = 9 Desafios reais do(a) ${activeClient.name}`
+    : "9 Trilhas = 9 Desafios reais da sua empresa";
 
   const otherProducts = products.filter((p) => p.id !== product.id);
 
@@ -349,7 +414,7 @@ export default function ProductPage() {
               </div>
             </div>
             {(product.blocks || []).map((blk, i) => (
-              <Block blk={blk} key={i} />
+              <Block blk={blk.isTrilhas ? { ...blk, heading: trilhasHeading } : blk} key={i} />
             ))}
           </>
         )}
