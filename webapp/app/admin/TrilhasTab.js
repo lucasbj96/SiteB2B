@@ -115,6 +115,10 @@ export function TrilhasTab() {
         Conteúdo compartilhado entre as páginas <strong>In-Company</strong> e <strong>UC by CatólicaSC</strong> — editar aqui
         atualiza as duas.
       </p>
+      <p className="card-s">
+        Dica: digite <strong>{"{{empresa}}"}</strong> em qualquer campo de texto abaixo para inserir automaticamente o nome do
+        cliente ativo — ou "sua empresa" quando nenhum cliente estiver ativo.
+      </p>
       {msg && <p className={msg.ok ? "msg-ok" : "msg-err"}>{msg.text}</p>}
 
       {drafts.map((d, i) => {

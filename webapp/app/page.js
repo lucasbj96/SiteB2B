@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useApp } from "./providers";
+import { personalize } from "../lib/personalize";
 
 export default function HomePage() {
   const { activeClient, homeContent, products, loading } = useApp();
@@ -10,6 +11,7 @@ export default function HomePage() {
   }
 
   const personalized = !!activeClient && !activeClient.isDefault;
+  const clientNameForCopy = personalized ? activeClient.name : null;
   const heroLead = personalized
     ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${activeClient.name}.`
     : homeContent.lead;
@@ -69,7 +71,7 @@ export default function HomePage() {
                 <span className="prod-tag">{p.tag}</span>
               </div>
               <div className="prod-name">{p.name}</div>
-              <p className="prod-pitch">{p.pitch}</p>
+              <p className="prod-pitch">{p.premium ? p.pitch : personalize(p.pitch, clientNameForCopy)}</p>
               <div className="prod-go">
                 Ver programa <span className="arw">→</span>
               </div>

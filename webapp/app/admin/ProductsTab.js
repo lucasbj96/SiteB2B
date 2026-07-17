@@ -179,6 +179,13 @@ export function ProductsTab() {
       <div className="card">
         <h3 className="card-h">Editar conteúdo público</h3>
         <p className="card-s">Alterações aqui refletem imediatamente na página pública do programa.</p>
+        {!current?.premium && (
+          <p className="card-s">
+            Dica: digite <strong>{"{{empresa}}"}</strong> em qualquer campo de texto abaixo (título, frase de destaque, textos,
+            listas, chamada final…) para inserir automaticamente o nome do cliente ativo — ou "sua empresa" quando nenhum
+            cliente estiver ativo.
+          </p>
+        )}
         {msg && <p className={msg.ok ? "msg-ok" : "msg-err"}>{msg.text}</p>}
 
         <div className="field">

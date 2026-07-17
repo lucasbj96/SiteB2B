@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useApp } from "../../providers";
 import { DIAG } from "../../../lib/products";
+import { deepPersonalize, personalize } from "../../../lib/personalize";
 
 function emptyDiag() {
   return { i: 0, scores: {}, multi: [], done: false, lead: { name: "", email: "", area: "" }, leadError: false };
@@ -203,9 +204,11 @@ export default function ProductPage() {
 
   const personalized = !!activeClient && !activeClient.isDefault;
   const showWatermark = personalized && !!activeClient.logo && !product.premium;
-  const trilhasHeading = personalized
-    ? `9 Trilhas = 9 Desafios reais do(a) ${activeClient.name}`
-    : "9 Trilhas = 9 Desafios reais da sua empresa";
+  const clientNameForCopy = personalized ? activeClient.name : null;
+  // Exclusive stays immune to client personalization, text included —
+  // everything else can use {{empresa}} anywhere in its editable copy.
+  const dp = product.premium ? product : deepPersonalize(product, clientNameForCopy);
+  const trilhasHeading = personalize("9 Trilhas = 9 Desafios reais da {{empresa}}", clientNameForCopy);
 
   const otherProducts = products.filter((p) => p.id !== product.id);
 
@@ -264,9 +267,9 @@ export default function ProductPage() {
         <div className="pv-hero">
           {showWatermark && <img className="pv-watermark" src={activeClient.logo} alt="" />}
           <div className="pv-hero-content">
-            <div className="pv-tag">{product.tag}</div>
-            <h1 className="pv-title">{product.name}</h1>
-            <p className="pv-manifesto">{product.manifesto}</p>
+            <div className="pv-tag">{dp.tag}</div>
+            <h1 className="pv-title">{dp.name}</h1>
+            <p className="pv-manifesto">{dp.manifesto}</p>
           </div>
         </div>
 
@@ -368,7 +371,7 @@ export default function ProductPage() {
                 <h3 className="diag-res-h">Com base nas suas respostas, recomendamos:</h3>
                 <button className="diag-rec" onClick={() => router.push(`/produtos/${rec.primary.id}`)}>
                   <p className="rn">{rec.primary.name} →</p>
-                  <p className="rp">{rec.primary.pitch}</p>
+                  <p className="rp">{rec.primary.premium ? rec.primary.pitch : personalize(rec.primary.pitch, clientNameForCopy)}</p>
                 </button>
                 <div className="diag-sec">
                   Também vale conhecer:{" "}
@@ -391,9 +394,9 @@ export default function ProductPage() {
           </div>
         ) : (
           <>
-            {product.stats && product.stats.length > 0 && (
+            {dp.stats && dp.stats.length > 0 && (
               <div className="stat-row">
-                {product.stats.map((s, i) => (
+                {dp.stats.map((s, i) => (
                   <div className="stat" key={i}>
                     <div className="stat-v">{s.v}</div>
                     <div className="stat-l">{s.l}</div>
@@ -403,13 +406,13 @@ export default function ProductPage() {
             )}
             <div className="pv-grid">
               <div className="pv-body">
-                {(product.body || []).map((p, i) => (
+                {(dp.body || []).map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
               </div>
               <div className="pv-points">
                 <p className="pv-points-h">Em resumo</p>
-                {(product.points || []).map((t, i) => (
+                {(dp.points || []).map((t, i) => (
                   <div className="point" key={i}>
                     <span className="pn">{"0" + (i + 1)}</span>
                     <span>{t}</span>
@@ -417,7 +420,7 @@ export default function ProductPage() {
                 ))}
               </div>
             </div>
-            {(product.blocks || []).map((blk, i) => (
+            {(dp.blocks || []).map((blk, i) => (
               <Block blk={blk.isTrilhas ? { ...blk, heading: trilhasHeading } : blk} key={i} />
             ))}
           </>
@@ -425,11 +428,11 @@ export default function ProductPage() {
 
         <div className="pv-cta">
           <div>
-            <h3 className="pv-cta-h">{product.cta ? product.cta[0] : ""}</h3>
-            <p className="pv-cta-s">{product.cta ? product.cta[1] : ""}</p>
+            <h3 className="pv-cta-h">{dp.cta ? dp.cta[0] : ""}</h3>
+            <p className="pv-cta-s">{dp.cta ? dp.cta[1] : ""}</p>
           </div>
           <a className="btn btn-brand btn-lg" href={waHref} target="_blank" rel="noopener noreferrer">
-            {product.ctaButtonLabel || "Falar com o time comercial →"}
+            {dp.ctaButtonLabel || "Falar com o time comercial →"}
           </a>
         </div>
 

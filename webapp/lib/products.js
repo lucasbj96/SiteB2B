@@ -207,16 +207,16 @@ export const PRODUCTS = [
     ],
     points: ["10 profissionais curados imediatamente", "Curadoria por competência, não por currículo", "Pipeline construído ao longo de 4 anos", "Retorno duplo: talento hoje e amanhã"],
     blocks: [
-      { isList: true, heading: "Para a sua empresa", items: ["10 profissionais curados e disponíveis imediatamente", "Pipeline alinhado à cultura antes mesmo da contratação", "Custo de recrutamento reduzido", "Redução de turnover e marca empregadora mais forte na região"] },
+      { isList: true, heading: "Para a {{empresa}}", items: ["10 profissionais curados e disponíveis imediatamente", "Pipeline alinhado à cultura antes mesmo da contratação", "Custo de recrutamento reduzido", "Redução de turnover e marca empregadora mais forte na região"] },
       { isList: true, heading: "Para o talento", items: ["Bolsa integral ou parcial garantida desde o início da graduação", "Inclusão no processo seletivo da empresa parceira", "Projetos reais aplicados durante o curso", "Acompanhamento de carreira do primeiro ano à contratação"] },
       { isList: true, heading: "Para a Católica", items: ["Contrato de longo prazo, renovável", "Vínculo profundo com empresas âncora da região", "Prova viva de relevância: formação que vira emprego"] },
     ],
-    cta: ["Quer começar a formar o seu pipeline?", "Vamos desenhar o Católica Legado para a sua operação."],
+    cta: ["Quer começar a formar o seu pipeline?", "Vamos desenhar o Católica Legado para a {{empresa}}."],
   },
   {
     id: "posco", name: "Pós Co. MBA", tag: "Pós-graduação",
-    pitch: "Uma pós-graduação co-desenhada para as necessidades reais da sua empresa.",
-    manifesto: "A empresa entra com o problema. A Católica entra com a ciência. O diploma sai com os dois.",
+    pitch: "Uma pós-graduação co-desenhada para as necessidades reais da {{empresa}}.",
+    manifesto: "A {{empresa}} entra com o problema. A Católica entra com a ciência. O diploma sai com os dois.",
     stats: [
       { v: "18 meses", l: "Duração média" },
       { v: "360h", l: "Carga horária" },
@@ -236,7 +236,7 @@ export const PRODUCTS = [
       ] },
       { isList: true, heading: "Áreas disponíveis para co-assinatura", items: ["Liderança Avançada & Gestão de Pessoas", "Gestão Industrial & Operações", "Tecnologia, Inovação & Dados", "Supply Chain & Sustentabilidade", "Direito Empresarial & Compliance", "Desenvolvimento Organizacional"] },
     ],
-    cta: ["Uma pós com a cara da sua empresa.", "Vamos montar a turma e o currículo em cooperação."],
+    cta: ["Uma pós com a cara da {{empresa}}.", "Vamos montar a turma e o currículo da {{empresa}} em cooperação."],
   },
   {
     id: "incompany", name: "In-Company", tag: "Formação sob medida",
@@ -257,12 +257,12 @@ export const PRODUCTS = [
       { isTrilhas: true, heading: "9 Trilhas = 9 Desafios reais da sua empresa", items: TRILHAS },
       { isList: true, heading: "O que vem junto em todas as trilhas", items: ["Diagnóstico inicial da necessidade específica antes de qualquer módulo iniciar", "Material desenvolvido para a realidade da empresa — nada de conteúdo genérico de prateleira", "Certificação MEC para todos os participantes que concluírem", "Relatório de impacto entregue à liderança ao final de cada programa"] },
     ],
-    cta: ["Formação que sua equipe usa amanhã.", "Vamos desenhar os módulos a partir dos seus desafios."],
+    cta: ["Formação que sua equipe usa amanhã.", "Vamos desenhar os módulos a partir dos desafios da {{empresa}}."],
   },
   {
     id: "uc", name: "UC by CatólicaSC", tag: "Universidade corporativa",
-    pitch: "A universidade corporativa da sua empresa — sem custar milhões nem levar anos.",
-    manifesto: "Décadas de infraestrutura acadêmica. Centenas de professores. Só falta o seu nome.",
+    pitch: "A universidade corporativa da {{empresa}} — sem custar milhões nem levar anos.",
+    manifesto: "Décadas de infraestrutura acadêmica. Centenas de professores. Só falta o nome da {{empresa}}.",
     stats: [
       { v: "500+", l: "Professores especializados" },
       { v: "18", l: "Áreas de conhecimento" },
@@ -280,7 +280,7 @@ export const PRODUCTS = [
         { a: "Plataformas genéricas de e-learning", b: "Conteúdo de prateleira, sem contexto da empresa.", c: "Programas customizados, desenhados para a realidade do cliente." },
         { a: "Treinamentos pontuais", b: "O efeito se dissolve em semanas — não forma cultura.", c: "Trilhas estruturadas com certificação e SLA de impacto." },
       ] },
-      { isList: true, heading: "Os 6 pilares", items: ["Professores — mais de 500 especialistas em 18 áreas", "Áreas — cobertura completa da jornada do colaborador", "Método — squads & sprints com entregável concreto", "LMS — plataforma white-label com a marca da empresa", "SLA — relatório executivo mensal de indicadores", "MEC — certificação nacional reconhecida pelo mercado"] },
+      { isList: true, heading: "Os 6 pilares", items: ["Professores — mais de 500 especialistas em 18 áreas", "Áreas — cobertura completa da jornada do colaborador", "Método — squads & sprints com entregável concreto", "LMS — plataforma white-label com a marca da {{empresa}}", "SLA — relatório executivo mensal de indicadores", "MEC — certificação nacional reconhecida pelo mercado"] },
       { isTrilhas: true, heading: "9 Trilhas = 9 Desafios reais da sua empresa", items: TRILHAS },
       { isSteps: true, heading: "Implantação em 90 dias", items: [
         { n: "01", t: "Diagnóstico", d: "Mapeamento de gaps, perfis e prioridades." },
@@ -289,7 +289,7 @@ export const PRODUCTS = [
         { n: "04", t: "Gestão contínua", d: "SLA mensal, revisão semestral, expansão conforme resultado." },
       ] },
     ],
-    cta: ["Sua universidade corporativa, pronta para operar.", "Vamos estruturar a UC da sua empresa."],
+    cta: ["Sua universidade corporativa, pronta para operar.", "Vamos estruturar a UC da {{empresa}}."],
   },
   {
     id: "diagnostico", name: "Diagnóstico Personalizado", tag: "Ferramenta", isDiag: true,
