@@ -70,7 +70,9 @@ body{margin:0}
 /* PRODUCT VIEW */
 .back{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;background:none;border:none;font-family:inherit;padding:0;margin:34px 0 0}
 .back:hover{color:var(--brand)}
-.pv-hero{padding:34px 0 8px;max-width:60ch}
+.pv-hero{padding:34px 0 8px;position:relative;overflow:hidden}
+.pv-hero-content{max-width:60ch;position:relative;z-index:1}
+.pv-watermark{position:absolute;top:0;bottom:0;right:-2%;margin:auto 0;width:380px;max-width:42vw;height:220px;object-fit:contain;opacity:.08;-webkit-mask-image:radial-gradient(ellipse at center,#000 28%,transparent 68%);mask-image:radial-gradient(ellipse at center,#000 28%,transparent 68%);pointer-events:none;user-select:none;z-index:0}
 .pv-tag{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--brand);margin-bottom:18px}
 .pv-title{font-family:'Space Grotesk';font-weight:600;font-size:52px;line-height:1.03;letter-spacing:-.03em;margin:0 0 22px}
 .pv-manifesto{font-family:'Space Grotesk';font-size:26px;line-height:1.3;font-weight:400;letter-spacing:-.01em;color:var(--ink);margin:0}

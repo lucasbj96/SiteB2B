@@ -13,13 +13,13 @@ export default function HomePage() {
   const heroLead = personalized
     ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${activeClient.name}.`
     : homeContent.lead;
-  const watermarkLogo = (activeClient && activeClient.logo) || "/assets/catolica-logo.png";
+  const showWatermark = personalized && !!activeClient.logo;
 
   return (
     <div>
       <div className="wrap">
         <div className="hero">
-          <img className="home-watermark" src={watermarkLogo} alt="" />
+          {showWatermark && <img className="home-watermark" src={activeClient.logo} alt="" />}
           <div className="hero-content">
             {personalized ? (
               <>

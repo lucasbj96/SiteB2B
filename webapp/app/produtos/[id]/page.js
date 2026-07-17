@@ -202,6 +202,7 @@ export default function ProductPage() {
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`;
 
   const personalized = !!activeClient && !activeClient.isDefault;
+  const showWatermark = personalized && !!activeClient.logo && !product.premium;
   const trilhasHeading = personalized
     ? `9 Trilhas = 9 Desafios reais do(a) ${activeClient.name}`
     : "9 Trilhas = 9 Desafios reais da sua empresa";
@@ -261,9 +262,12 @@ export default function ProductPage() {
         </button>
 
         <div className="pv-hero">
-          <div className="pv-tag">{product.tag}</div>
-          <h1 className="pv-title">{product.name}</h1>
-          <p className="pv-manifesto">{product.manifesto}</p>
+          {showWatermark && <img className="pv-watermark" src={activeClient.logo} alt="" />}
+          <div className="pv-hero-content">
+            <div className="pv-tag">{product.tag}</div>
+            <h1 className="pv-title">{product.name}</h1>
+            <p className="pv-manifesto">{product.manifesto}</p>
+          </div>
         </div>
 
         {product.isDiag ? (
