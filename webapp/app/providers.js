@@ -5,8 +5,8 @@ import { Nav } from "./nav";
 
 const AppContext = createContext(null);
 
-const DEFAULT_PRIMARY = "#3B6EF6";
-const DEFAULT_SECONDARY = "#10245E";
+const DEFAULT_PRIMARY = "#900B40";
+const DEFAULT_SECONDARY = "#4F0623";
 const ACTIVE_KEY = "catsc_active_client";
 
 function hx(h) {
