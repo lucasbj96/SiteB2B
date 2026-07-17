@@ -83,16 +83,27 @@ export function Providers({ children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogin]);
 
-  const activate = useCallback((id) => {
-    setActiveId((cur) => {
-      const next = cur === id ? null : id;
-      try {
-        if (next) localStorage.setItem(ACTIVE_KEY, next);
-        else localStorage.removeItem(ACTIVE_KEY);
-      } catch {}
-      return next;
-    });
-  }, []);
+  const activate = useCallback(
+    (id) => {
+      setActiveId((cur) => {
+        let next;
+        if (cur === id) {
+          // Deactivating — fall back to the default client (the "opção
+          // geral" Católica theme) instead of leaving nothing active.
+          const def = clients.find((c) => c.isDefault);
+          next = def ? def.id : null;
+        } else {
+          next = id;
+        }
+        try {
+          if (next) localStorage.setItem(ACTIVE_KEY, next);
+          else localStorage.removeItem(ACTIVE_KEY);
+        } catch {}
+        return next;
+      });
+    },
+    [clients]
+  );
 
   const activeClient = useMemo(() => clients.find((c) => c.id === activeId) || null, [clients, activeId]);
 
