@@ -8,11 +8,12 @@ export async function PUT(req, { params }) {
   const body = await req.json();
   const conn = await db();
   await conn.execute({
-    sql: `INSERT INTO product_overrides (product_id, name, tag, pitch, manifesto, body, points, cta_title, cta_sub, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    sql: `INSERT INTO product_overrides (product_id, name, tag, pitch, manifesto, body, points, cta_title, cta_sub, stats, blocks, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           ON CONFLICT(product_id) DO UPDATE SET
             name=excluded.name, tag=excluded.tag, pitch=excluded.pitch, manifesto=excluded.manifesto,
             body=excluded.body, points=excluded.points, cta_title=excluded.cta_title, cta_sub=excluded.cta_sub,
+            stats=excluded.stats, blocks=excluded.blocks,
             updated_at=excluded.updated_at`,
     args: [
       id,
@@ -24,6 +25,8 @@ export async function PUT(req, { params }) {
       JSON.stringify(Array.isArray(body.points) ? body.points : []),
       body.ctaTitle || "",
       body.ctaSub || "",
+      JSON.stringify(Array.isArray(body.stats) ? body.stats : []),
+      JSON.stringify(Array.isArray(body.blocks) ? body.blocks : []),
       new Date().toISOString(),
     ],
   });

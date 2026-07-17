@@ -4,12 +4,14 @@ import { useApp } from "../providers";
 import { ClientsTab } from "./ClientsTab";
 import { HomeTab } from "./HomeTab";
 import { ProductsTab } from "./ProductsTab";
+import { TrilhasTab } from "./TrilhasTab";
 import { SettingsTab } from "./SettingsTab";
 
 const TABS = [
   { id: "clients", label: "Clientes" },
   { id: "home", label: "Página inicial" },
   { id: "products", label: "Conteúdo dos programas" },
+  { id: "trilhas", label: "Trilhas" },
   { id: "settings", label: "Configurações" },
 ];
 
@@ -41,6 +43,7 @@ export default function AdminPage() {
         {tab === "clients" && <ClientsTab />}
         {tab === "home" && <HomeTab />}
         {tab === "products" && <ProductsTab />}
+        {tab === "trilhas" && <TrilhasTab />}
         {tab === "settings" && <SettingsTab />}
       </div>
     </div>

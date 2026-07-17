@@ -41,6 +41,8 @@ async function migrate() {
         points TEXT,
         cta_title TEXT,
         cta_sub TEXT,
+        stats TEXT,
+        blocks TEXT,
         updated_at TEXT
       )`,
       `CREATE TABLE IF NOT EXISTS home_content (
@@ -61,6 +63,13 @@ async function migrate() {
     ],
     "write"
   );
+  // Idempotent column additions for deployments created before stats/blocks
+  // editing existed. SQLite has no "ADD COLUMN IF NOT EXISTS", so we probe
+  // the schema and only add what's missing.
+  const { rows } = await db.execute("PRAGMA table_info(product_overrides)");
+  const cols = new Set(rows.map((r) => r.name));
+  if (!cols.has("stats")) await db.execute("ALTER TABLE product_overrides ADD COLUMN stats TEXT");
+  if (!cols.has("blocks")) await db.execute("ALTER TABLE product_overrides ADD COLUMN blocks TEXT");
 }
 
 async function seed() {

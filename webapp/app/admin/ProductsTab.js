@@ -2,6 +2,65 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useApp } from "../providers";
+import { PRODUCTS } from "../../lib/products";
+
+function linesOf(text) {
+  return (text || "").split("\n").map((t) => t.trim()).filter(Boolean);
+}
+function cols(line, n) {
+  const parts = line.split("|").map((s) => s.trim());
+  while (parts.length < n) parts.push("");
+  return parts;
+}
+
+function blockToText(b) {
+  if (b.isList) return (b.items || []).join("\n");
+  if (b.isSteps) return (b.items || []).map((s) => `${s.t} | ${s.d}`).join("\n");
+  if (b.isTable) return (b.rows || []).map((r) => `${r.a} | ${r.b} | ${r.c}`).join("\n");
+  if (b.isChapters) return (b.items || []).map((c) => `${c.num} | ${c.title} | ${c.quote} | ${c.partner || ""}`).join("\n");
+  return "";
+}
+
+function draftBlockFrom(b) {
+  return {
+    isList: !!b.isList, isSteps: !!b.isSteps, isTable: !!b.isTable,
+    isChapters: !!b.isChapters, isNote: !!b.isNote, isTrilhas: !!b.isTrilhas,
+    heading: b.heading || "",
+    bodyText: blockToText(b),
+    text: b.isNote ? b.text || "" : undefined,
+  };
+}
+
+function blockFromDraft(d) {
+  if (d.isTrilhas) return { isTrilhas: true, heading: d.heading };
+  if (d.isList) return { isList: true, heading: d.heading, items: linesOf(d.bodyText) };
+  if (d.isSteps)
+    return {
+      isSteps: true, heading: d.heading,
+      items: linesOf(d.bodyText).map((line, i) => {
+        const [t, dsc] = cols(line, 2);
+        return { n: String(i + 1).padStart(2, "0"), t, d: dsc };
+      }),
+    };
+  if (d.isTable)
+    return {
+      isTable: true, heading: d.heading,
+      rows: linesOf(d.bodyText).map((line) => {
+        const [a, b, c] = cols(line, 3);
+        return { a, b, c };
+      }),
+    };
+  if (d.isChapters)
+    return {
+      isChapters: true, heading: d.heading,
+      items: linesOf(d.bodyText).map((line) => {
+        const [num, title, quote, partner] = cols(line, 4);
+        return { num, title, quote, partner };
+      }),
+    };
+  if (d.isNote) return { isNote: true, heading: d.heading, text: d.text || "" };
+  return d;
+}
 
 function draftFromProduct(p) {
   return {
@@ -13,8 +72,17 @@ function draftFromProduct(p) {
     pointsText: (p.points || []).join("\n"),
     ctaTitle: p.cta ? p.cta[0] : "",
     ctaSub: p.cta ? p.cta[1] : "",
+    statsText: (p.stats || []).map((s) => `${s.v} | ${s.l}`).join("\n"),
+    blocks: (p.blocks || []).map(draftBlockFrom),
   };
 }
+
+const BLOCK_LABELS = {
+  isList: "Itens da lista — um por linha",
+  isSteps: "Passos — um por linha, formato: Título | Descrição",
+  isTable: "Linhas da tabela — uma por linha, formato: Coluna 1 | Coluna 2 | Coluna 3",
+  isChapters: "Capítulos — um por linha, formato: Número | Título | Citação | Parceiro (opcional)",
+};
 
 export function ProductsTab() {
   const { products, refreshProducts } = useApp();
@@ -40,10 +108,15 @@ export function ProductsTab() {
 
   if (!draft || !selectedId) return null;
   const current = products.find((p) => p.id === selectedId);
+  const base = PRODUCTS.find((p) => p.id === selectedId);
   const isStd = current && !current.isDiag;
+  const hasStats = base && Array.isArray(base.stats);
 
   function setD(patch) {
     setDraft((d) => ({ ...d, ...patch }));
+  }
+  function setBlock(i, patch) {
+    setDraft((d) => ({ ...d, blocks: d.blocks.map((b, bi) => (bi === i ? { ...b, ...patch } : b)) }));
   }
 
   async function onSave() {
@@ -59,6 +132,11 @@ export function ProductsTab() {
         points: draft.pointsText.split("\n").map((t) => t.trim()).filter(Boolean),
         ctaTitle: draft.ctaTitle,
         ctaSub: draft.ctaSub,
+        stats: linesOf(draft.statsText).map((line) => {
+          const [v, l] = cols(line, 2);
+          return { v, l };
+        }),
+        blocks: draft.blocks.map(blockFromDraft),
       };
       const res = await fetch(`/api/products/${selectedId}`, {
         method: "PUT",
@@ -131,6 +209,40 @@ export function ProductsTab() {
             </div>
           </>
         )}
+        {hasStats && (
+          <div className="field">
+            <span className="label">Estatísticas — uma por linha, formato: Valor | Rótulo</span>
+            <textarea className="input textarea" rows={4} value={draft.statsText} onChange={(e) => setD({ statsText: e.target.value })} />
+          </div>
+        )}
+
+        {draft.blocks.map((b, i) => (
+          <div className="field block-editor" key={i}>
+            {b.isTrilhas ? (
+              <>
+                <span className="label">Bloco de trilhas</span>
+                <p className="card-s" style={{ margin: 0 }}>
+                  As 9 trilhas são editadas na aba <strong>Trilhas</strong> (o conteúdo é compartilhado entre In-Company e UC by CatólicaSC).
+                </p>
+              </>
+            ) : b.isNote ? (
+              <>
+                <span className="label">Título da nota</span>
+                <input className="input" style={{ marginBottom: 10 }} value={b.heading} onChange={(e) => setBlock(i, { heading: e.target.value })} />
+                <span className="label">Texto da nota</span>
+                <textarea className="input textarea" rows={4} value={b.text} onChange={(e) => setBlock(i, { text: e.target.value })} />
+              </>
+            ) : (
+              <>
+                <span className="label">Título do bloco</span>
+                <input className="input" style={{ marginBottom: 10 }} value={b.heading} onChange={(e) => setBlock(i, { heading: e.target.value })} />
+                <span className="label">{BLOCK_LABELS[Object.keys(BLOCK_LABELS).find((k) => b[k])]}</span>
+                <textarea className="input textarea" rows={5} value={b.bodyText} onChange={(e) => setBlock(i, { bodyText: e.target.value })} />
+              </>
+            )}
+          </div>
+        ))}
+
         <div className="field">
           <span className="label">Chamada final — título</span>
           <input className="input" value={draft.ctaTitle} onChange={(e) => setD({ ctaTitle: e.target.value })} />

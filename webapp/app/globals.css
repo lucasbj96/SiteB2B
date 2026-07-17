@@ -298,6 +298,11 @@ body{margin:0}
 .pc-item.on{border-color:var(--brand);background:var(--brand-soft);color:var(--brand)}
 .pc-dot{width:7px;height:7px;border-radius:99px;background:var(--brand);flex-shrink:0}
 .textarea{resize:vertical;min-height:60px;line-height:1.5;font-family:inherit}
+.block-editor{padding-top:16px;border-top:1px dashed var(--line)}
+.trilha-edit-card{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.trilha-edit-head{width:100%;display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:14px;font-weight:600;padding:14px 16px;background:var(--bg);border:none;cursor:pointer;text-align:left;color:var(--ink)}
+.trilha-edit-head:hover{background:var(--brand-soft)}
+.trilha-edit-body{padding:18px 16px;border-top:1px solid var(--line)}
 .msg-ok{font-size:13px;color:#1f8a4d;margin:0 0 12px}
 .msg-err{font-size:13px;color:#c0304a;margin:0 0 12px}
 .center-loading{padding:120px 20px;text-align:center;color:var(--muted);font-size:14px}
