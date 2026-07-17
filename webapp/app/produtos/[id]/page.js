@@ -60,13 +60,13 @@ function TrilhasBlock({ heading, items }) {
                 <span className="trilha-name">{tr.titulo}</span>
               </div>
               <p className="trilha-tag">{tr.subtitulo}</p>
-              <div className="trilha-meta">
-                <span>{tr.publico}</span>
-                <span>{tr.duracao}</span>
-              </div>
               <span className="trilha-toggle">{isOpen ? "Ocultar detalhes ↑" : "Ver detalhes ↓"}</span>
               {isOpen && (
                 <div className="trilha-expand" onClick={(e) => e.stopPropagation()}>
+                  <div className="trilha-meta">
+                    <span>{tr.publico}</span>
+                    <span>{tr.duracao}</span>
+                  </div>
                   <div>
                     <p className="trilha-expand-h">Conteúdo programático</p>
                     <ul className="extra-list">
