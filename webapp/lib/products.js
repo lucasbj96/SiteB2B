@@ -202,7 +202,7 @@ export const PRODUCTS = [
     ],
     body: [
       "O mercado de talentos é um leilão. Toda empresa compete pelas mesmas pessoas, nos mesmos portais, com os mesmos benefícios. O Católica Legado existe para quem entendeu que isso não é sustentável.",
-      "No programa, a empresa investe na formação de pessoas desde o início da graduação. Em troca, recebe imediatamente 10 profissionais curados pelo Católica Carreiras — avaliados por competência, não apenas por currículo.",
+      "No programa, a {{empresa}} investe na formação de pessoas desde o início da graduação. Em troca, recebe imediatamente 10 profissionais curados pelo Católica Carreiras — avaliados por competência, não apenas por currículo.",
       "Ao longo de 4 anos, você constrói um pipeline de talentos que já conhece sua cultura antes de assinar a carteira. Não é filantropia: é investimento estratégico em infraestrutura humana, com retorno duplo — talento hoje e talento formado para você amanhã.",
     ],
     points: ["10 profissionais curados imediatamente", "Curadoria por competência, não por currículo", "Pipeline construído ao longo de 4 anos", "Retorno duplo: talento hoje e amanhã"],
@@ -224,15 +224,15 @@ export const PRODUCTS = [
       { v: "Diploma co-assinado", l: "Certificação MEC" },
     ],
     body: [
-      "Uma pós-graduação realizada em cooperação, desenhada a partir das necessidades reais da sua empresa.",
+      "Uma pós-graduação realizada em cooperação, desenhada a partir das necessidades reais da {{empresa}}.",
       "O currículo é construído em conjunto — combinando o rigor acadêmico da Católica SC com os desafios concretos do seu negócio, em uma turma dedicada ao seu time, com diploma co-assinado.",
     ],
-    points: ["Currículo co-desenhado com a empresa", "Turma dedicada ao seu time", "Rigor acadêmico reconhecido", "Aplicação direta ao negócio"],
+    points: ["Currículo co-desenhado com a {{empresa}}", "Turma dedicada ao seu time", "Rigor acadêmico reconhecido", "Aplicação direta ao negócio"],
     blocks: [
       { isSteps: true, heading: "Como funciona", items: [
         { n: "01", t: "Diagnóstico", d: "Mapeamento dos gaps estratégicos para escolher a pós de maior impacto." },
-        { n: "02", t: "Co-construção", d: "Currículo desenvolvido com professores selecionados por fit técnico e setorial, com cases reais da sua operação." },
-        { n: "03", t: "Certificação", d: "Turma fechada, cronograma adaptado à rotina da empresa, diploma co-assinado com certificação MEC." },
+        { n: "02", t: "Co-construção", d: "Currículo desenvolvido com professores selecionados por fit técnico e setorial, com cases reais da {{empresa}}." },
+        { n: "03", t: "Certificação", d: "Turma fechada, cronograma adaptado à rotina da {{empresa}}, diploma co-assinado com certificação MEC." },
       ] },
       { isList: true, heading: "Áreas disponíveis para co-assinatura", items: ["Liderança Avançada & Gestão de Pessoas", "Gestão Industrial & Operações", "Tecnologia, Inovação & Dados", "Supply Chain & Sustentabilidade", "Direito Empresarial & Compliance", "Desenvolvimento Organizacional"] },
     ],
@@ -248,14 +248,14 @@ export const PRODUCTS = [
       { v: "30 dias", l: "Follow-up de impacto" },
     ],
     body: [
-      "Formação in-company desenhada para a realidade do cliente. Cada módulo termina com um entregável concreto — algo aplicável já no próximo dia de trabalho.",
+      "Formação in-company desenhada para a realidade da {{empresa}}. Cada módulo termina com um entregável concreto — algo aplicável já no próximo dia de trabalho.",
       "Porque treinamento sem continuidade não forma, apenas entretém. Aqui, aprendizado e execução andam sempre juntos, com o método Fator Dia Seguinte™.",
     ],
-    points: ["Conteúdo desenhado para a sua realidade", "Entregável concreto a cada módulo", "Aplicação imediata no trabalho", "Continuidade que forma, não entretém"],
+    points: ["Conteúdo desenhado para a realidade da {{empresa}}", "Entregável concreto a cada módulo", "Aplicação imediata no trabalho", "Continuidade que forma, não entretém"],
     blocks: [
       { isList: true, heading: "O método Fator Dia Seguinte™", items: ["Entregável concreto por módulo — o conhecimento vira ação antes do fim do dia", "Squads de 8 a 12 pessoas do mesmo contexto, sem mistura de hierarquias", "Follow-up estruturado de 30 dias para medir impacto real — não entusiasmo passageiro"] },
       { isTrilhas: true, heading: "9 Trilhas = 9 Desafios reais da sua empresa", items: TRILHAS },
-      { isList: true, heading: "O que vem junto em todas as trilhas", items: ["Diagnóstico inicial da necessidade específica antes de qualquer módulo iniciar", "Material desenvolvido para a realidade da empresa — nada de conteúdo genérico de prateleira", "Certificação MEC para todos os participantes que concluírem", "Relatório de impacto entregue à liderança ao final de cada programa"] },
+      { isList: true, heading: "O que vem junto em todas as trilhas", items: ["Diagnóstico inicial da necessidade específica antes de qualquer módulo iniciar", "Material desenvolvido para a realidade da {{empresa}} — nada de conteúdo genérico de prateleira", "Certificação MEC para todos os participantes que concluírem", "Relatório de impacto entregue à liderança ao final de cada programa"] },
     ],
     cta: ["Formação que sua equipe usa amanhã.", "Vamos desenhar os módulos a partir dos desafios da {{empresa}}."],
   },
@@ -271,13 +271,13 @@ export const PRODUCTS = [
     ],
     body: [
       "Montar uma universidade corporativa do zero custa milhões e leva anos.",
-      "A UC by CatólicaSC é a universidade corporativa da sua empresa — com a identidade da empresa, os programas que ela precisa e o rigor acadêmico que o mercado reconhece.",
+      "A UC by CatólicaSC é a universidade corporativa da sua empresa — com a identidade da {{empresa}}, os programas que ela precisa e o rigor acadêmico que o mercado reconhece.",
     ],
-    points: ["Identidade visual da sua empresa", "Programas sob medida", "Rigor acadêmico reconhecido", "Estrutura pronta, sem anos de espera"],
+    points: ["Identidade visual da {{empresa}}", "Programas sob medida", "Rigor acadêmico reconhecido", "Estrutura pronta, sem anos de espera"],
     blocks: [
       { isTable: true, heading: "Por que adotar, não construir", rows: [
         { a: "Construir uma UC própria", b: "Anos de projeto, CAPEX alto e infraestrutura ociosa — enquanto isso o talento não para de sair.", c: "Ativa em 90 dias, sem CAPEX — a estrutura já existe." },
-        { a: "Plataformas genéricas de e-learning", b: "Conteúdo de prateleira, sem contexto da empresa.", c: "Programas customizados, desenhados para a realidade do cliente." },
+        { a: "Plataformas genéricas de e-learning", b: "Conteúdo de prateleira, sem contexto da {{empresa}}.", c: "Programas customizados, desenhados para a realidade da {{empresa}}." },
         { a: "Treinamentos pontuais", b: "O efeito se dissolve em semanas — não forma cultura.", c: "Trilhas estruturadas com certificação e SLA de impacto." },
       ] },
       { isList: true, heading: "Os 6 pilares", items: ["Professores — mais de 500 especialistas em 18 áreas", "Áreas — cobertura completa da jornada do colaborador", "Método — squads & sprints com entregável concreto", "LMS — plataforma white-label com a marca da {{empresa}}", "SLA — relatório executivo mensal de indicadores", "MEC — certificação nacional reconhecida pelo mercado"] },
@@ -294,7 +294,7 @@ export const PRODUCTS = [
   {
     id: "diagnostico", name: "Diagnóstico Personalizado", tag: "Ferramenta", isDiag: true,
     pitch: "4 perguntas. 3 minutos. As trilhas certas para o seu momento.",
-    manifesto: "Antes de criar um programa, precisamos entender o seu problema de verdade.",
+    manifesto: "Antes de criar um programa, precisamos entender o problema real da {{empresa}}.",
     body: [], points: [],
     cta: ["Prefere conversar direto?", "Nosso time comercial interpreta o diagnóstico com você."],
   },
