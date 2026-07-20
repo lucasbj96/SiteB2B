@@ -61,7 +61,7 @@ body{margin:0;overflow-x:hidden}
 .prod-go{margin-top:auto;padding-top:18px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--brand)}
 .prod-go .arw{transition:.2s}
 .prod-card:hover .prod-go .arw{transform:translateX(4px)}
-.prod-card.premium{background:var(--dark);border-color:#1c2130;color:#f2f3f6}
+.prod-card.premium{background:#232838;border-color:#323952;color:#f2f3f6}
 .prod-card.premium:hover{border-color:#2a3145;box-shadow:0 18px 40px -22px rgba(0,0,0,.55)}
 .prod-card.premium .prod-name{color:#fff}
 .prod-card.premium .prod-pitch{color:#9aa2b4}
