@@ -58,33 +58,6 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="sec-head" id="programas">
-          <div>
-            <div className="eyebrow">{homeContent.sectionEyebrow}</div>
-            <h2 className="sec-title">{homeContent.sectionTitle}</h2>
-          </div>
-        </div>
-
-        <div className="prod-grid">
-          {products.map((p, i) => (
-            <Link
-              key={p.id}
-              href={`/produtos/${p.id}`}
-              className={p.premium ? "prod-card premium" : "prod-card"}
-            >
-              <div className="prod-top">
-                <span className="prod-num">{"0" + (i + 1)}</span>
-                <span className="prod-tag">{p.tag}</span>
-              </div>
-              <div className="prod-name">{p.name}</div>
-              <p className="prod-pitch">{p.premium ? p.pitch : personalize(p.pitch, clientNameForCopy)}</p>
-              <div className="prod-go">
-                Ver programa <span className="arw">→</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-
         <div className="reasons-sec">
           <div className="sec-head" style={{ margin: "0 0 8px" }}>
             <div>
@@ -100,6 +73,35 @@ export default function HomePage() {
                 <h3 className="reason-t">{personalize(r.title, clientNameForCopy)}</h3>
                 <p className="reason-d">{personalize(r.text, clientNameForCopy)}</p>
               </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="programs-band">
+          <div className="sec-head" id="programas" style={{ margin: "0 0 28px" }}>
+            <div>
+              <div className="eyebrow">{homeContent.sectionEyebrow}</div>
+              <h2 className="sec-title">{homeContent.sectionTitle}</h2>
+            </div>
+          </div>
+
+          <div className="prod-grid">
+            {products.map((p, i) => (
+              <Link
+                key={p.id}
+                href={`/produtos/${p.id}`}
+                className={p.premium ? "prod-card premium" : "prod-card"}
+              >
+                <div className="prod-top">
+                  <span className="prod-num">{"0" + (i + 1)}</span>
+                  <span className="prod-tag">{p.tag}</span>
+                </div>
+                <div className="prod-name">{p.name}</div>
+                <p className="prod-pitch">{p.premium ? p.pitch : personalize(p.pitch, clientNameForCopy)}</p>
+                <div className="prod-go">
+                  Ver programa <span className="arw">→</span>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
