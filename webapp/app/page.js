@@ -79,8 +79,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="brand-flat-band">
-          <div className="sec-head" id="programas">
+        <div className="brand-flat-band band-prod">
+          <div className="sec-head" id="programas" style={{ margin: "0 0 28px" }}>
             <div>
               <div className="eyebrow">{homeContent.sectionEyebrow}</div>
               <h2 className="sec-title">{homeContent.sectionTitle}</h2>

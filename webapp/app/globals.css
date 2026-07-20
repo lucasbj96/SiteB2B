@@ -278,6 +278,7 @@ body{margin:0;overflow-x:hidden}
 .mini-x:hover{color:#d0455a}
 .reasons-sec{margin:64px 0 90px}
 .brand-flat-band{background:color-mix(in srgb,var(--brand) 14%,transparent);margin:0 -100vw;padding:0 100vw}
+.brand-flat-band.band-prod{padding-top:56px}
 .reasons-sub{font-size:16px;line-height:1.55;color:var(--muted);max-width:62ch;margin:0 0 32px}
 .reasons-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
 .reason-card{border:1px solid var(--line);border-left:2px solid var(--brand);border-radius:14px;padding:26px 28px;background:var(--surface)}
