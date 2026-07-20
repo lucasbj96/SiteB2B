@@ -79,6 +79,25 @@ export default function HomePage() {
           ))}
         </div>
 
+        <div className="reasons-sec">
+          <div className="sec-head" style={{ margin: "0 0 8px" }}>
+            <div>
+              <div className="eyebrow">O diagnóstico</div>
+              <h2 className="sec-title">{personalize(homeContent.reasonsTitle, clientNameForCopy)}</h2>
+            </div>
+          </div>
+          <p className="reasons-sub">{personalize(homeContent.reasonsSubtitle, clientNameForCopy)}</p>
+          <div className="reasons-grid">
+            {(homeContent.reasons || []).map((r, i) => (
+              <div className="reason-card" key={i}>
+                <span className="reason-n">{"0" + (i + 1)}</span>
+                <h3 className="reason-t">{personalize(r.title, clientNameForCopy)}</h3>
+                <p className="reason-d">{personalize(r.text, clientNameForCopy)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
         <div className="foot">
           <div className="foot-l">
             <img className="blk" style={{ width: 26, height: 26, borderRadius: 6 }} src="/assets/catolica-logo.png" alt="Católica SC" />

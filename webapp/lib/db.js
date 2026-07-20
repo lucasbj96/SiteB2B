@@ -54,6 +54,9 @@ async function migrate() {
         lead TEXT,
         section_eyebrow TEXT,
         section_title TEXT,
+        reasons_title TEXT,
+        reasons_subtitle TEXT,
+        reasons TEXT,
         updated_at TEXT
       )`,
       `CREATE TABLE IF NOT EXISTS settings (
@@ -70,6 +73,12 @@ async function migrate() {
   const cols = new Set(rows.map((r) => r.name));
   if (!cols.has("stats")) await db.execute("ALTER TABLE product_overrides ADD COLUMN stats TEXT");
   if (!cols.has("blocks")) await db.execute("ALTER TABLE product_overrides ADD COLUMN blocks TEXT");
+
+  const { rows: homeCols } = await db.execute("PRAGMA table_info(home_content)");
+  const hcCols = new Set(homeCols.map((r) => r.name));
+  if (!hcCols.has("reasons_title")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons_title TEXT");
+  if (!hcCols.has("reasons_subtitle")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons_subtitle TEXT");
+  if (!hcCols.has("reasons")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons TEXT");
 }
 
 async function seed() {

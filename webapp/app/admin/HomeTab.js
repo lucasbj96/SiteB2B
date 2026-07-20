@@ -18,6 +18,20 @@ export function HomeTab() {
     setDraft((d) => ({ ...d, ...patch }));
   }
 
+  const reasonsText = (draft.reasons || []).map((r) => `${r.title} | ${r.text}`).join("\n");
+  function onReasonsChange(value) {
+    const items = value
+      .split("\n")
+      .map((l) => l.trim())
+      .filter(Boolean)
+      .map((line) => {
+        const idx = line.indexOf("|");
+        if (idx === -1) return { title: line, text: "" };
+        return { title: line.slice(0, idx).trim(), text: line.slice(idx + 1).trim() };
+      });
+    setD({ reasons: items });
+  }
+
   async function onSave() {
     setSaving(true);
     setMsg(null);
@@ -73,6 +87,25 @@ export function HomeTab() {
       <div className="field">
         <span className="label">Título da seção de programas</span>
         <input className="input" value={draft.sectionTitle} onChange={(e) => setD({ sectionTitle: e.target.value })} />
+      </div>
+
+      <div className="block-editor">
+        <p className="card-s" style={{ marginTop: 0 }}>
+          Seção "razões", exibida logo depois da grade de programas. Dica: digite <strong>{"{{empresa}}"}</strong> em qualquer
+          campo abaixo para puxar automaticamente o nome do cliente ativo (ou "sua empresa" quando genérico).
+        </p>
+        <div className="field">
+          <span className="label">Título da seção</span>
+          <input className="input" value={draft.reasonsTitle} onChange={(e) => setD({ reasonsTitle: e.target.value })} />
+        </div>
+        <div className="field">
+          <span className="label">Subtítulo da seção</span>
+          <textarea className="input textarea" rows={2} value={draft.reasonsSubtitle} onChange={(e) => setD({ reasonsSubtitle: e.target.value })} />
+        </div>
+        <div className="field">
+          <span className="label">Razões — uma por linha, formato: Título | Texto</span>
+          <textarea className="input textarea" rows={8} value={reasonsText} onChange={(e) => onReasonsChange(e.target.value)} />
+        </div>
       </div>
 
       <div className="form-actions">
