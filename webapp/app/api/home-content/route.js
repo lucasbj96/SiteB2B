@@ -29,6 +29,8 @@ const DEFAULTS = {
       text: "O colaborador que coleciona certificados mas não muda de comportamento é um sintoma — não um problema individual. Formação que não tem critério de conclusão real não tem valor para quem recebe nem para quem paga. A Católica emite. O mercado reconhece.",
     },
   ],
+  consultorTitle: "A {{empresa}} e a Católica, numa parceria que faz diferença.",
+  consultorSubtitle: "Cada programa começa com uma conversa. Fale com o nosso time comercial e vamos entender juntos o momento da {{empresa}}.",
 };
 
 function rowToContent(r) {
@@ -51,6 +53,8 @@ function rowToContent(r) {
     reasonsTitle: r.reasons_title ?? DEFAULTS.reasonsTitle,
     reasonsSubtitle: r.reasons_subtitle ?? DEFAULTS.reasonsSubtitle,
     reasons,
+    consultorTitle: r.consultor_title ?? DEFAULTS.consultorTitle,
+    consultorSubtitle: r.consultor_subtitle ?? DEFAULTS.consultorSubtitle,
   };
 }
 
@@ -65,13 +69,14 @@ export async function PUT(req) {
   const c = { ...DEFAULTS, ...body };
   const conn = await db();
   await conn.execute({
-    sql: `INSERT INTO home_content (id, eyebrow, heading_pre, heading_accent, heading_post, lead, section_eyebrow, section_title, reasons_title, reasons_subtitle, reasons, updated_at)
-          VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    sql: `INSERT INTO home_content (id, eyebrow, heading_pre, heading_accent, heading_post, lead, section_eyebrow, section_title, reasons_title, reasons_subtitle, reasons, consultor_title, consultor_subtitle, updated_at)
+          VALUES (1, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           ON CONFLICT(id) DO UPDATE SET
             eyebrow=excluded.eyebrow, heading_pre=excluded.heading_pre, heading_accent=excluded.heading_accent,
             heading_post=excluded.heading_post, lead=excluded.lead, section_eyebrow=excluded.section_eyebrow,
             section_title=excluded.section_title, reasons_title=excluded.reasons_title,
             reasons_subtitle=excluded.reasons_subtitle, reasons=excluded.reasons,
+            consultor_title=excluded.consultor_title, consultor_subtitle=excluded.consultor_subtitle,
             updated_at=excluded.updated_at`,
     args: [
       c.eyebrow,
@@ -84,6 +89,8 @@ export async function PUT(req) {
       c.reasonsTitle,
       c.reasonsSubtitle,
       JSON.stringify(Array.isArray(c.reasons) ? c.reasons : []),
+      c.consultorTitle,
+      c.consultorSubtitle,
       new Date().toISOString(),
     ],
   });

@@ -4,7 +4,7 @@ import { useApp } from "./providers";
 import { personalize } from "../lib/personalize";
 
 export default function HomePage() {
-  const { activeClient, homeContent, products, loading } = useApp();
+  const { activeClient, homeContent, products, settings, loading } = useApp();
 
   if (loading || !homeContent) {
     return <div className="wrap"><p className="center-loading">Carregando…</p></div>;
@@ -16,6 +16,12 @@ export default function HomePage() {
     ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${activeClient.name}.`
     : homeContent.lead;
   const showWatermark = personalized && !!activeClient.logo;
+
+  const waNumber = (settings.whatsappNumber || "5547999340133").replace(/\D/g, "");
+  const waMsg = personalized
+    ? `Olá! Sou da ${activeClient.name} e gostaria de falar com um consultor da Católica SC.`
+    : "Olá! Gostaria de falar com um consultor da Católica SC.";
+  const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(waMsg)}`;
 
   return (
     <div>
@@ -96,6 +102,16 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+
+        <div className="pv-cta" style={{ margin: "0 0 60px" }}>
+          <div>
+            <h3 className="pv-cta-h">{personalize(homeContent.consultorTitle, clientNameForCopy)}</h3>
+            <p className="pv-cta-s">{personalize(homeContent.consultorSubtitle, clientNameForCopy)}</p>
+          </div>
+          <a className="btn btn-brand btn-lg" href={waHref} target="_blank" rel="noopener noreferrer">
+            Falar com um consultor →
+          </a>
         </div>
 
         <div className="foot">

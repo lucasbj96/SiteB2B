@@ -57,6 +57,8 @@ async function migrate() {
         reasons_title TEXT,
         reasons_subtitle TEXT,
         reasons TEXT,
+        consultor_title TEXT,
+        consultor_subtitle TEXT,
         updated_at TEXT
       )`,
       `CREATE TABLE IF NOT EXISTS settings (
@@ -79,6 +81,8 @@ async function migrate() {
   if (!hcCols.has("reasons_title")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons_title TEXT");
   if (!hcCols.has("reasons_subtitle")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons_subtitle TEXT");
   if (!hcCols.has("reasons")) await db.execute("ALTER TABLE home_content ADD COLUMN reasons TEXT");
+  if (!hcCols.has("consultor_title")) await db.execute("ALTER TABLE home_content ADD COLUMN consultor_title TEXT");
+  if (!hcCols.has("consultor_subtitle")) await db.execute("ALTER TABLE home_content ADD COLUMN consultor_subtitle TEXT");
 }
 
 async function seed() {

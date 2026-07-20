@@ -108,6 +108,20 @@ export function HomeTab() {
         </div>
       </div>
 
+      <div className="block-editor">
+        <p className="card-s" style={{ marginTop: 0 }}>
+          Card "Fale com um consultor", no final da página, com botão para o WhatsApp.
+        </p>
+        <div className="field">
+          <span className="label">Título do card</span>
+          <input className="input" value={draft.consultorTitle} onChange={(e) => setD({ consultorTitle: e.target.value })} />
+        </div>
+        <div className="field">
+          <span className="label">Subtítulo do card</span>
+          <textarea className="input textarea" rows={2} value={draft.consultorSubtitle} onChange={(e) => setD({ consultorSubtitle: e.target.value })} />
+        </div>
+      </div>
+
       <div className="form-actions">
         <button className="btn btn-brand" style={{ flex: 1, justifyContent: "center" }} onClick={onSave} disabled={saving}>
           {saving ? "Salvando…" : "Salvar conteúdo"}
