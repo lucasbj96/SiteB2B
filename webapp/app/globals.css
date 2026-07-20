@@ -6,7 +6,7 @@ body{margin:0;overflow-x:hidden}
 .wrap{max-width:1180px;margin:0 auto;padding:0 40px}
 .eyebrow{font-family:'IBM Plex Sans';font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 /* NAV */
-.nav{position:sticky;top:0;z-index:50;background:rgba(251,251,252,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--brand) 7%,rgb(251 251 252 / 82%));backdrop-filter:blur(14px);border-bottom:1px solid var(--brand-line)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;height:66px;gap:24px}
 .brand-lock{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;text-decoration:none;color:inherit}
 .blk{width:34px;height:34px;border-radius:8px;object-fit:cover;flex-shrink:0}
@@ -285,7 +285,8 @@ body{margin:0;overflow-x:hidden}
 .reason-d{font-size:14.5px;line-height:1.62;color:#3a3f4c;margin:0}
 @media(max-width:900px){.reasons-grid{grid-template-columns:1fr}}
 /* FOOTER */
-.foot{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.bottom-band{background:color-mix(in srgb,var(--brand) 10%,transparent);margin:0 -100vw 0;padding:56px 100vw 4px}
+.foot{border-top:1px solid var(--brand-line);padding:34px 0;margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
 .foot-l{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted)}
 .foot-links{display:flex;gap:20px;font-size:13px;color:var(--muted)}
 .login-wrap{min-height:calc(100vh - 66px);display:flex;align-items:center;justify-content:center;padding:40px 0}

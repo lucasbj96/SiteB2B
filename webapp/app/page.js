@@ -104,25 +104,27 @@ export default function HomePage() {
           ))}
         </div>
 
-        <div className="pv-cta" style={{ margin: "0 0 60px" }}>
-          <div>
-            <h3 className="pv-cta-h">{personalize(homeContent.consultorTitle, clientNameForCopy)}</h3>
-            <p className="pv-cta-s">{personalize(homeContent.consultorSubtitle, clientNameForCopy)}</p>
+        <div className="bottom-band">
+          <div className="pv-cta" style={{ margin: "0 0 44px" }}>
+            <div>
+              <h3 className="pv-cta-h">{personalize(homeContent.consultorTitle, clientNameForCopy)}</h3>
+              <p className="pv-cta-s">{personalize(homeContent.consultorSubtitle, clientNameForCopy)}</p>
+            </div>
+            <a className="btn btn-brand btn-lg" href={waHref} target="_blank" rel="noopener noreferrer">
+              Falar com um consultor →
+            </a>
           </div>
-          <a className="btn btn-brand btn-lg" href={waHref} target="_blank" rel="noopener noreferrer">
-            Falar com um consultor →
-          </a>
-        </div>
 
-        <div className="foot">
-          <div className="foot-l">
-            <img className="blk" style={{ width: 26, height: 26, borderRadius: 6 }} src="/assets/catolica-logo.png" alt="Católica SC" />
-            Católica SC · Educação Corporativa
-          </div>
-          <div className="foot-links">
-            <span>Jaraguá do Sul</span>
-            <span>Joinville</span>
-            <span>0800 600 0005</span>
+          <div className="foot">
+            <div className="foot-l">
+              <img className="blk" style={{ width: 26, height: 26, borderRadius: 6 }} src="/assets/catolica-logo.png" alt="Católica SC" />
+              Católica SC · Educação Corporativa
+            </div>
+            <div className="foot-links">
+              <span>Jaraguá do Sul</span>
+              <span>Joinville</span>
+              <span>0800 600 0005</span>
+            </div>
           </div>
         </div>
       </div>
