@@ -449,6 +449,18 @@ export default function ProductPage() {
           </div>
         </div>
       </div>
+
+      <div className="foot">
+        <div className="foot-l">
+          <img className="blk" style={{ width: 26, height: 26, borderRadius: 6 }} src="/assets/catolica-logo.png" alt="Católica SC" />
+          Católica SC · Educação Corporativa
+        </div>
+        <div className="foot-links">
+          <span>Jaraguá do Sul</span>
+          <span>Joinville</span>
+          <span>0800 600 0005</span>
+        </div>
+      </div>
     </div>
   );
 }
