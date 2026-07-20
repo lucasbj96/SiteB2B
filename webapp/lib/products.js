@@ -275,13 +275,12 @@ export const PRODUCTS = [
     ],
     points: ["Identidade visual da {{empresa}}", "Programas sob medida", "Rigor acadêmico reconhecido", "Estrutura pronta, sem anos de espera"],
     blocks: [
-      { isTable: true, heading: "Por que adotar, não construir", rows: [
-        { a: "Construir uma UC própria", b: "Anos de projeto, CAPEX alto e infraestrutura ociosa — enquanto isso o talento não para de sair.", c: "Ativa em 90 dias, sem CAPEX — a estrutura já existe." },
-        { a: "Plataformas genéricas de e-learning", b: "Conteúdo de prateleira, sem contexto da {{empresa}}.", c: "Programas customizados, desenhados para a realidade da {{empresa}}." },
-        { a: "Treinamentos pontuais", b: "O efeito se dissolve em semanas — não forma cultura.", c: "Trilhas estruturadas com certificação e SLA de impacto." },
-      ] },
       { isList: true, heading: "Os 6 pilares", items: ["Professores — mais de 500 especialistas em 18 áreas", "Áreas — cobertura completa da jornada do colaborador", "Método — squads & sprints com entregável concreto", "LMS — plataforma white-label com a marca da {{empresa}}", "SLA — relatório executivo mensal de indicadores", "MEC — certificação nacional reconhecida pelo mercado"] },
-      { isTrilhas: true, heading: "9 Trilhas = 9 Desafios reais da sua empresa", items: TRILHAS },
+      { isTable: true, heading: "Por que adotar, não construir", rows: [
+        { a: "Construir UC própria", b: "Anos de projeto. Investimento de CAPEX. Infraestrutura ociosa. Equipe interna, sistema proprietário, acreditação, docentes, campus — tudo do zero. E enquanto isso o talento não para de sair.", c: "Ativo em 90 dias, sem CAPEX. A estrutura já existe. A {{empresa}} opera com a sua marca, os seus programas e o rigor acadêmico de uma instituição com 53 anos de história." },
+        { a: "Plataformas genéricas de e-learning", b: "Conteúdo de prateleira, sem contexto {{empresa}}. O colaborador faz o curso, recebe o certificado genérico, e não consegue conectar o aprendizado com o que vive na operação.", c: "Programas customizados com docentes selecionados por fit. Cada trilha é desenhada para a realidade {{empresa}}. Os professores entendem o contexto industrial. O conteúdo faz sentido na segunda-feira de manhã." },
+        { a: "Treinamentos pontuais sem continuidade", b: "Efeito dissolve em 2 semanas. Um workshop por trimestre não forma cultura. Forma relatório de horas de treinamento — que impressiona no slide e desaparece na prática.", c: "Trilhas estruturadas com certificação e SLA de impacto. Jornadas contínuas por cargo e nível, com SLA mensal de resultados. O aprendizado vira indicador — não anedota." },
+      ] },
       { isSteps: true, heading: "Implantação em 90 dias", items: [
         { n: "01", t: "Diagnóstico", d: "Mapeamento de gaps, perfis e prioridades." },
         { n: "02", t: "Arquitetura da UC", d: "Definição de trilhas, identidade e roadmap anual." },
