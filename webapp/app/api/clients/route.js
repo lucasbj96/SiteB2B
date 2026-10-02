@@ -2,6 +2,12 @@ import { NextResponse } from "next/server";
 import { db } from "../../../lib/db";
 
 function rowToClient(r) {
+  let customTexts = {};
+  if (r.custom_texts) {
+    try {
+      customTexts = JSON.parse(r.custom_texts);
+    } catch {}
+  }
   return {
     id: r.id,
     name: r.name,
@@ -10,6 +16,7 @@ function rowToClient(r) {
     primary: r.primary_color,
     secondary: r.secondary_color,
     isDefault: !!r.is_default,
+    customTexts,
   };
 }
 
@@ -34,11 +41,15 @@ export async function POST(req) {
     primary: body.primary || "#3B6EF6",
     secondary: body.secondary || "#10245E",
     isDefault: !!body.isDefault,
+    customTexts: body.customTexts && typeof body.customTexts === "object" ? body.customTexts : {},
   };
   await conn.execute({
-    sql: `INSERT INTO clients (id, name, sector, logo, primary_color, secondary_color, is_default, created_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-    args: [rec.id, rec.name, rec.sector, rec.logo, rec.primary, rec.secondary, rec.isDefault ? 1 : 0, new Date().toISOString()],
+    sql: `INSERT INTO clients (id, name, sector, logo, primary_color, secondary_color, is_default, custom_texts, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    args: [
+      rec.id, rec.name, rec.sector, rec.logo, rec.primary, rec.secondary, rec.isDefault ? 1 : 0,
+      JSON.stringify(rec.customTexts), new Date().toISOString(),
+    ],
   });
   return NextResponse.json({ client: rec }, { status: 201 });
 }

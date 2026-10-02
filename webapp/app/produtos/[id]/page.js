@@ -209,6 +209,7 @@ export default function ProductPage() {
   // everything else can use {{empresa}} anywhere in its editable copy.
   const dp = product.premium ? product : deepPersonalize(product, clientNameForCopy);
   const trilhasHeading = personalize("9 Trilhas = 9 Desafios reais da {{empresa}}", clientNameForCopy);
+  const customText = personalized && (activeClient.customTexts?.[product.id] || "").trim();
 
   const otherProducts = products.filter((p) => p.id !== product.id);
 
@@ -272,6 +273,13 @@ export default function ProductPage() {
             <p className="pv-manifesto">{dp.manifesto}</p>
           </div>
         </div>
+
+        {customText && (
+          <div className="note-block" style={{ marginTop: 32 }}>
+            <p className="note-h">Mensagem para {activeClient.name}</p>
+            <p className="note-text">{customText}</p>
+          </div>
+        )}
 
         {product.isDiag ? (
           <div className="diag">

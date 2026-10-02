@@ -3,7 +3,24 @@ import { useState } from "react";
 import { useApp, initial } from "../providers";
 import { extractColors } from "../../lib/colors";
 
-const EMPTY_DRAFT = { name: "", logo: null, primary: "#3B6EF6", secondary: "#10245E", sector: "", palette: [], isDefault: false };
+const PAGE_FIELDS = [
+  { key: "home", label: "Visão geral (página inicial)" },
+  { key: "legado", label: "Católica Legado" },
+  { key: "posco", label: "Pós Co. MBA" },
+  { key: "incompany", label: "In-Company" },
+  { key: "uc", label: "UC by CatólicaSC" },
+  { key: "diagnostico", label: "Diagnóstico Personalizado" },
+  { key: "exclusive", label: "Católica Exclusive" },
+];
+
+function emptyCustomTexts() {
+  return PAGE_FIELDS.reduce((acc, f) => ({ ...acc, [f.key]: "" }), {});
+}
+
+const EMPTY_DRAFT = {
+  name: "", logo: null, primary: "#3B6EF6", secondary: "#10245E", sector: "",
+  palette: [], isDefault: false, customTexts: emptyCustomTexts(),
+};
 
 export function ClientsTab() {
   const { clients, refreshClients, activeId, activate } = useApp();
@@ -14,6 +31,10 @@ export function ClientsTab() {
 
   function setD(patch) {
     setDraft((d) => ({ ...d, ...patch }));
+  }
+
+  function setCustomText(key, value) {
+    setDraft((d) => ({ ...d, customTexts: { ...d.customTexts, [key]: value } }));
   }
 
   async function onLogo(e) {
@@ -42,6 +63,7 @@ export function ClientsTab() {
         primary: draft.primary,
         secondary: draft.secondary,
         isDefault: draft.isDefault,
+        customTexts: draft.customTexts,
       };
       const res = editingId
         ? await fetch(`/api/clients/${editingId}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
@@ -62,7 +84,10 @@ export function ClientsTab() {
 
   function onEdit(c) {
     setEditingId(c.id);
-    setDraft({ name: c.name, logo: c.logo, primary: c.primary, secondary: c.secondary, sector: c.sector || "", isDefault: !!c.isDefault, palette: [] });
+    setDraft({
+      name: c.name, logo: c.logo, primary: c.primary, secondary: c.secondary, sector: c.sector || "",
+      isDefault: !!c.isDefault, palette: [], customTexts: { ...emptyCustomTexts(), ...(c.customTexts || {}) },
+    });
     setMsg(null);
     window.scrollTo(0, 0);
   }
@@ -152,6 +177,25 @@ export function ClientsTab() {
               </div>
             </label>
           </div>
+        </div>
+
+        <div className="field">
+          <span className="label">Textos personalizados por página (opcional)</span>
+          <p className="card-s" style={{ margin: "0 0 10px" }}>
+            Escreva um texto livre para esta empresa — ele aparece em destaque na respectiva página sempre que este cliente
+            estiver ativo. Deixe em branco para não exibir nada.
+          </p>
+          {PAGE_FIELDS.map((f) => (
+            <div key={f.key} style={{ marginBottom: 12 }}>
+              <span className="label" style={{ fontWeight: 500 }}>{f.label}</span>
+              <textarea
+                className="input textarea"
+                rows={2}
+                value={draft.customTexts[f.key] || ""}
+                onChange={(e) => setCustomText(f.key, e.target.value)}
+              />
+            </div>
+          ))}
         </div>
 
         <div className="field">

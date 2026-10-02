@@ -19,10 +19,11 @@ export async function PUT(req, { params }) {
     primary: body.primary || "#3B6EF6",
     secondary: body.secondary || "#10245E",
     isDefault: !!body.isDefault,
+    customTexts: body.customTexts && typeof body.customTexts === "object" ? body.customTexts : {},
   };
   await conn.execute({
-    sql: `UPDATE clients SET name=?, sector=?, logo=?, primary_color=?, secondary_color=?, is_default=? WHERE id=?`,
-    args: [rec.name, rec.sector, rec.logo, rec.primary, rec.secondary, rec.isDefault ? 1 : 0, id],
+    sql: `UPDATE clients SET name=?, sector=?, logo=?, primary_color=?, secondary_color=?, is_default=?, custom_texts=? WHERE id=?`,
+    args: [rec.name, rec.sector, rec.logo, rec.primary, rec.secondary, rec.isDefault ? 1 : 0, JSON.stringify(rec.customTexts), id],
   });
   return NextResponse.json({ client: { id, ...rec } });
 }

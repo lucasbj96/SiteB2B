@@ -29,6 +29,7 @@ async function migrate() {
         primary_color TEXT,
         secondary_color TEXT,
         is_default INTEGER NOT NULL DEFAULT 0,
+        custom_texts TEXT,
         created_at TEXT NOT NULL
       )`,
       `CREATE TABLE IF NOT EXISTS product_overrides (
@@ -71,6 +72,10 @@ async function migrate() {
   // Idempotent column additions for deployments created before stats/blocks
   // editing existed. SQLite has no "ADD COLUMN IF NOT EXISTS", so we probe
   // the schema and only add what's missing.
+  const { rows: clientCols } = await db.execute("PRAGMA table_info(clients)");
+  const ccSet = new Set(clientCols.map((r) => r.name));
+  if (!ccSet.has("custom_texts")) await db.execute("ALTER TABLE clients ADD COLUMN custom_texts TEXT");
+
   const { rows } = await db.execute("PRAGMA table_info(product_overrides)");
   const cols = new Set(rows.map((r) => r.name));
   if (!cols.has("stats")) await db.execute("ALTER TABLE product_overrides ADD COLUMN stats TEXT");

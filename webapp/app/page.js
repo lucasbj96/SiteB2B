@@ -16,6 +16,7 @@ export default function HomePage() {
     ? `Um portfólio de programas de educação corporativa — de formação de talentos a transformação de lideranças — desenhado para os desafios da ${activeClient.name}.`
     : homeContent.lead;
   const showWatermark = personalized && !!activeClient.logo;
+  const customText = personalized && (activeClient.customTexts?.home || "").trim();
 
   const waNumber = (settings.whatsappNumber || "5547999340133").replace(/\D/g, "");
   const waMsg = personalized
@@ -59,6 +60,13 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
+        {customText && (
+          <div className="note-block" style={{ marginTop: 44 }}>
+            <p className="note-h">Mensagem para {activeClient.name}</p>
+            <p className="note-text">{customText}</p>
+          </div>
+        )}
 
         <div className="reasons-sec">
           <div className="sec-head" style={{ margin: "0 0 8px" }}>
